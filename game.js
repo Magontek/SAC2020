@@ -18,14 +18,14 @@ var config = {
 
     function preload ()
     {
-        this.load.image('fondo', 'assets/space3.png');
+        this.load.image('fondo', 'assets/space3.jpg');
         this.load.image('logo', 'assets/logo.png');
         this.load.image('red', 'assets/red.png');
     }
 
     function create ()
     {
-        this.add.image(1000, 300, 'sky');
+        this.add.image(940, 529, 'sky');
 
         var particles = this.add.particles('red');
 
