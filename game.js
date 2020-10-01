@@ -21,11 +21,14 @@ var config = {
         this.load.image('fondo', 'assets/fondo_menu.jpg');
         this.load.image('logo', 'assets/logo.png');
         this.load.image('red', 'assets/red.png');
+        this.load.image('shooter', 'assets/satelite_laser.png');//agregado imagen satelite disparador
     }
 
     function create ()
     {
         this.add.image(470, 264, 'fondo');
+
+        this.input.setDefaultCursor('url(assets/input/cursors/mira.png), pointer');//cambia el mouse a un objetivo
 
         var particles = this.add.particles('red');
 
@@ -42,5 +45,20 @@ var config = {
         logo.setCollideWorldBounds(true);
 
         emitter.startFollow(logo);
-    }
 
+        var shooter = this.physics.add.image(400, 100, 'shooter');
+
+        var circle = new Phaser.Geom.Circle(400, 300, 220);//Prueba de agregar satelite giratorio
+        Phaser.Actions.PlaceOnCircle(shooter, circle);
+        tween = this.tweens.addCounter({
+                from: 220,
+                to: 100,
+                duration: 3000,
+                delay: 2000,
+                ease: 'Sine.easeInOut',
+                repeat: -1,
+    }
+function update ()
+{
+        Phaser.Actions.RotateAroundDistance(shooter, { x: 400, y: 300 }, 0.02, tween.getValue());
+}
