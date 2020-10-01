@@ -25,7 +25,7 @@ var config = {
 
     function create ()
     {
-        this.add.image(940, 529, 'sky');
+        this.add.image(940, 529, 'fondo');
 
         var particles = this.add.particles('red');
 
