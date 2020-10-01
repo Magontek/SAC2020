@@ -1,7 +1,7 @@
 var config = {
         type: Phaser.AUTO,
-        width: 800,
-        height: 600,
+        width: 940,
+        height: 529,
         physics: {
             default: 'arcade',
             arcade: {
@@ -18,7 +18,7 @@ var config = {
 
     function preload ()
     {
-        this.load.image('fondo', 'assets/space3.jpg');
+        this.load.image('fondo', 'assets/fondo_menu.jpg');
         this.load.image('logo', 'assets/logo.png');
         this.load.image('red', 'assets/red.png');
     }
