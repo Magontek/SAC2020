@@ -1,7 +1,7 @@
 var config = {
         type: Phaser.AUTO,
         width: 940,
-        height: 529,
+        height: 528,
         physics: {
             default: 'arcade',
             arcade: {
@@ -25,7 +25,7 @@ var config = {
 
     function create ()
     {
-        this.add.image(940, 529, 'fondo');
+        this.add.image(-470, -264, 'fondo');
 
         var particles = this.add.particles('red');
 
