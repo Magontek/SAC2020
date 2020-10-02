@@ -28,7 +28,7 @@ var config = {
     {
         this.add.image(470, 264, 'fondo');
 
-        this.input.setDefaultCursor('url(assets/input/cursors/mira.png), pointer');//cambia el mouse a un objetivo
+        this.input.setDefaultCursor('url(assets/input/mira.png), pointer');//cambia el mouse a un objetivo
 
         var particles = this.add.particles('red');
 
@@ -56,7 +56,7 @@ var config = {
                 duration: 3000,
                 delay: 2000,
                 ease: 'Sine.easeInOut',
-                repeat: -1,
+                repeat: -1});
     }
 function update ()
 {
