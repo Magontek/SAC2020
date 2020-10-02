@@ -25,8 +25,8 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.image('sun', 'assets/tests/space/sun.png');
-    this.load.image('alien', 'assets/sprites/space-baddie.png');
+    this.load.image('sun', 'assets/sun.png');
+    this.load.image('alien', 'assets/space-baddie.png');
 }
 
 function create ()
@@ -36,24 +36,21 @@ function create ()
 
     this.matter.world.setBounds();
 
-    this.matter.add.imageStack('alien', null, 0, 500, 50, 2, 0, 0, {
+    this.matter.add.imageStack('alien', null, 0, 1, 1, 2, 0, 0, {
         mass: 1,
-        ignorePointer: true
+        ignorePointer: true,
+        inertia: Infinity
     });
 
     var sun = this.matter.add.image(400, 200, 'sun', null, {
+    	mass: 200,
         shape: {
             type: 'circle',
             radius: 64
         },
         plugin: {
-            attractors: [
-                function (bodyA, bodyB) {
-                    return {
-                        x: (bodyA.position.x - bodyB.position.x) * 0.000001,
-                        y: (bodyA.position.y - bodyB.position.y) * 0.000001
-                    };
-                }
+        	attractors: [
+            	Phaser.Physics.Matter.Matter.Plugin.resolve("matter-attractors").Attractors.gravity
             ]
         }
     });
