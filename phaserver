@@ -1,0 +1,20 @@
+server {
+    listen 8041;
+
+    root /home/tim/Desktop/tim/SAC2020/;
+
+    index index.phaser.html;
+
+    server_name game.magontek.com.ar phaser.magontek.com.ar;
+
+     access_log /var/log/nginx/SAC2020A.access.log;
+     error_log /var/log/nginx/SAC2020E.error.log;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+     location ~ ^/~(.+?)(/.*)?$ {
+        alias /home/tim/Desktop/tim/SAC2020/;
+        autoindex on;
+    }
+}

@@ -22,14 +22,18 @@ var config = {
         this.load.image('logo', 'assets/logo.png');
         this.load.image('red', 'assets/red.png');
         this.load.image('shooter', 'assets/satelite_laser.png');
-        this.load.image('pointer', 'assets/input/mira.png');
+        this.load.image('looker', 'assets/input/mira.cur');
     }
 
     function create ()
     {
         this.add.image(470, 264, 'fondo');
 
-        this.input.setDefaultCursor('pointer');
+        //this.input.setDefaultCursor('pointer');
+        this.input.setDefaultCursor('url(assets/input/mira.cur), looker');
+        //game.canvas.style.cursor = 'target';
+        //this.input.setDefaultCursor('url(assets/input/mira.png), target');
+        //this.input.setDefaultCursor('assets/input/mira.png');
 
         var particles = this.add.particles('red');
 
@@ -48,6 +52,7 @@ var config = {
         emitter.startFollow(logo);
 
         var shooter = this.physics.add.image(400, 100, 'shooter');
+
 
         var circle = new Phaser.Geom.Circle(400, 300, 220);//Prueba de agregar satelite giratorio
         Phaser.Actions.PlaceOnCircle(shooter, circle);
