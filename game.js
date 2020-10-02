@@ -71,7 +71,7 @@ var sc_play = new Phaser.Class({
         pausa.on('pointerdown', ()=>{
             this.scene.start('sc_menu')
         });
-
+        //FIN BOTON PAUSA
 
 
 
@@ -113,11 +113,11 @@ var config = {
         width: 940,
         height: 528,
         parent: 'SAC2020',
-        scene: [sc_menu,sc_play],
+        scene: [sc_menu,sc_play], //ESTO ES NECESARIO, SE AGREGAN TODAS LAS ESCENAS ACÁ
         physics: {
             default: 'arcade',
             arcade: {
-                gravity: { y: 200 }
+                gravity: { y: 0 }
             }
         },
 };
