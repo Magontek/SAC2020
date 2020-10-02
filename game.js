@@ -1,7 +1,9 @@
+//var sc_title = new Phaser.Scene('title');
 var config = {
         type: Phaser.AUTO,
         width: 940,
         height: 528,
+//        scene: sc_title
         physics: {
             default: 'arcade',
             arcade: {
@@ -29,7 +31,8 @@ var config = {
 
         this.input.setDefaultCursor('url(assets/input/mira.cur), pointer');
 
-        this.add.sprite(470, 264, 'fondo')
+        var background = this.add.sprite(0, 0, 'fondo')
+        background.setOrigin(0, 0);
 
         var particles = this.add.particles('red');
 
