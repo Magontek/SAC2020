@@ -21,14 +21,15 @@ var config = {
         this.load.image('fondo', 'assets/fondo_menu.jpg');
         this.load.image('logo', 'assets/logo.png');
         this.load.image('red', 'assets/red.png');
-        this.load.image('shooter', 'assets/satelite_laser.png');//agregado imagen satelite disparador
+        this.load.image('shooter', 'assets/satelite_laser.png');
+        this.load.image('pointer', 'assets/input/mira.png');
     }
 
     function create ()
     {
         this.add.image(470, 264, 'fondo');
 
-        this.input.setDefaultCursor('url(assets/input/mira.png), pointer');//cambia el mouse a un objetivo
+        this.input.setDefaultCursor('pointer');
 
         var particles = this.add.particles('red');
 
