@@ -35,11 +35,15 @@ function create ()
     // this.matter.enableAttractorPlugin();
 
     this.matter.world.setBounds();
+    this.matter.world.getDelta = function (time, delta) { return delta; };
 
-    this.matter.add.imageStack('alien', null, 0, 1, 1, 2, 0, 0, {
+
+    var cosos = this.matter.add.imageStack('alien', null, 0, 1, 1, 2, 0, 0, {
         mass: 1,
         ignorePointer: true,
-        inertia: Infinity
+        inertia: Infinity,
+        frictionAir: 0,
+        friction: 0
     });
 
     var sun = this.matter.add.image(400, 200, 'sun', null, {
