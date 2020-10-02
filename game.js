@@ -1,9 +1,7 @@
-//var sc_title = new Phaser.Scene('title');
 var config = {
         type: Phaser.AUTO,
         width: 940,
         height: 528,
-//        scene: sc_title
         physics: {
             default: 'arcade',
             arcade: {
@@ -18,6 +16,11 @@ var config = {
 
     var game = new Phaser.Game(config);
 
+
+
+// PRELOAD
+
+
     function preload ()
     {
         this.load.image('fondo', 'assets/fondo_menu.jpg');
@@ -26,11 +29,20 @@ var config = {
         this.load.image('shooter', 'assets/satelite_laser.png');
     }
 
+
+
+// CREATE
+
+
     function create ()
     {
+//MENU PRINCIPAL
 
+        this.state.start('menu1');
+
+
+//JUEGO PRINCIPAL
         this.input.setDefaultCursor('url(assets/input/mira.cur), pointer');
-
         var background = this.add.sprite(0, 0, 'fondo')
         background.setOrigin(0, 0);
 
@@ -63,6 +75,11 @@ var config = {
                 ease: 'Sine.easeInOut',
                 repeat: -1});
     }
+
+
+// UPDATE
+
+
 function update ()
 {
         Phaser.Actions.RotateAroundDistance(shooter, { x: 400, y: 300 }, 0.02, tween.getValue());
