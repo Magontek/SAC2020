@@ -27,15 +27,6 @@ var sc_menu = new Phaser.Class({
 
 
         var opcion2 = this.add.sprite(game.config.width / 2, game.config.height / 2 + 60, 'boton');
-
-
-
-/*var logo = this.physics.add.image(400, 100, 'logo').setInteractive({  });
-
-
-        this.input.on('pointerdown',(pointr)=>{
-            this.scene.start('sc_play');
-        });*/
     }
 });
 
@@ -50,6 +41,7 @@ var sc_play = new Phaser.Class({
         },
 
 
+
     preload (){
         this.load.image('fondo', 'assets/fondo_menu.jpg');
         this.load.image('logo', 'assets/logo.png');
@@ -58,16 +50,31 @@ var sc_play = new Phaser.Class({
         this.load.image('opciones', 'assets/opciones.png');
     },
 
-    create(){
+    
+    create (){
 
         this.input.setDefaultCursor('url(assets/input/mira.cur), pointer');
         var background = this.add.sprite(0, 0, 'fondo')
         background.setOrigin(0, 0);
 
 
-        var pausa = this.add.sprite(game.config.width - 45, 5, 'opciones');
+        //BOTON DE PAUSA ENGRANAJE
+        var pausa = this.add.sprite(game.config.width - 45, 5, 'opciones').setInteractive();
         pausa.setOrigin(0, 0);
         pausa.setScale(0.8);
+        pausa.on('pointerover', function() {
+            pausa.setTint(0x7878ff);
+        });
+        pausa.on('pointerout', function() {
+            pausa.clearTint();
+        });
+        pausa.on('pointerdown', ()=>{
+            this.scene.start('sc_menu')
+        });
+
+
+
+
 
         var particles = this.add.particles('red');
 
@@ -85,28 +92,20 @@ var sc_play = new Phaser.Class({
 
         emitter.startFollow(logo);
 
-        var shooter = this.physics.add.image(400, 100, 'shooter').setInteractive({ cursor: 'url(assets/input/mira_dark.cur), pointer' });
 
 
-        var circle = new Phaser.Geom.Circle(400, 300, 220);//Prueba de agregar satelite giratorio
-        Phaser.Actions.PlaceOnCircle(shooter, circle);
-        tween = this.tweens.addCounter({
-            from: 220,
-            to: 100,
-            duration: 3000,
-            delay: 2000,
-            ease: 'Sine.easeInOut',
-            repeat: -1,
-        });
+        //satelite
+        var shooter = this.physics.add.image(400, 100, 'shooter');
+        shooter.setInteractive({ cursor: 'url(assets/input/mira_dark.cur), pointer' });   
+
+
+    },
+    update(){
+        //Phaser.Actions.RotateAroundDistance(shooter(),{ x: game.config.width / 2, y: game.config.height / 2 }, 0.02, 200);
     }
 });
 
-// UPDATE
 
-
-function update (){
-    Phaser.Actions.RotateAroundDistance(shooter, { x: 400, y: 300 }, 0.02, tween.getValue());       
-};
 
 
 var config = {
@@ -124,59 +123,3 @@ var config = {
 };
 
     var game = new Phaser.Game(config);
-/*
-
-
-// PRELOAD
-
-
-
-
-// CREATE
-
-
-    function create ()
-    {
-
-        this.input.setDefaultCursor('url(assets/input/mira.cur), pointer');
-        var background = this.add.sprite(0, 0, 'fondo')
-        background.setOrigin(0, 0);
-
-        var particles = this.add.particles('red');
-
-        var emitter = particles.createEmitter({
-            speed: 100,
-            scale: { start: 1, end: 0 },
-            blendMode: 'ADD'
-        });
-
-        var logo = this.physics.add.image(400, 100, 'logo').setInteractive({ cursor: 'url(assets/input/mira_dark.cur), pointer' });
-
-        logo.setVelocity(100, 200);
-        logo.setBounce(1, 1);
-        logo.setCollideWorldBounds(true);
-
-        emitter.startFollow(logo);
-
-        var shooter = this.physics.add.image(400, 100, 'shooter').setInteractive({ cursor: 'url(assets/input/mira_dark.cur), pointer' });
-
-
-        var circle = new Phaser.Geom.Circle(400, 300, 220);//Prueba de agregar satelite giratorio
-        Phaser.Actions.PlaceOnCircle(shooter, circle);
-        tween = this.tweens.addCounter({
-                from: 220,
-                to: 100,
-                duration: 3000,
-                delay: 2000,
-                ease: 'Sine.easeInOut',
-                repeat: -1});
-    }
-
-
-// UPDATE
-
-
-function update ()
-{
-        Phaser.Actions.RotateAroundDistance(shooter, { x: 400, y: 300 }, 0.02, tween.getValue());
-}*/
