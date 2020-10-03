@@ -31,7 +31,7 @@ var sc_play2 = new Phaser.Class({
             friction: 0
         });
 
-        this.matter.add.mouseSpring();
+        cosos.matter.add.mouseSpring();
 
         var sun = this.matter.add.image(400, 200, 'sun', null, {
             mass: 200,
@@ -42,7 +42,7 @@ var sc_play2 = new Phaser.Class({
             },
             plugin: {
                 attractors: [
-                    Phaser.Physics.Matter.Matter.Plugin.resolve("matter-attractors").Attractors.gravity
+                    //Phaser.Physics.Matter.Matter.Plugin.resolve("matter-attractors").Attractors.gravity
                 ]
             }
         });
