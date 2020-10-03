@@ -17,4 +17,6 @@ var config = {
 	        }
 	    },
 };
+var right;
+var left;
 var game = new Phaser.Game(config);

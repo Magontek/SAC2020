@@ -23,16 +23,6 @@ var sc_play1 = new Phaser.Class({
 
         //MOUSE
         this.input.setDefaultCursor('url(assets/input/mira.cur), pointer');
-        cursor=this.input.keyboard.createCursorKeys();
-        /*this.input.on('pointerdown', function (pointer){
-            if (pointer.leftButtonDown()){
-                console.log(input)
-            };
-            if (pointer.rightButtonDown()){
-                shooter.thrust(0.4);
-            }
-
-        });*/
 
         var background = this.add.sprite(0, 0, 'i_fondo');
         background.setOrigin(0, 0);
@@ -74,13 +64,32 @@ var sc_play1 = new Phaser.Class({
 
         //SATELITE
         shooter = this.shooter;
-        shooter = this.add.sprite(200,100,'i_shooter');
+        shooter = this.matter.add.sprite(200,100,'i_shooter');
         shooter.setInteractive({ cursor: 'url(assets/input/mira_dark.cur), pointer' });
         emitter.startFollow(shooter);
         //OTROS
         center = new Phaser.Geom.Point(game.config.width / 2,game.config.height / 2);
         input=this.input;
-        
+        var left = this.left;
+        var right = this.right;
+
+
+        this.input.on('pointerdown', function (pointer) {
+            if (pointer.rightButtonDown()){
+                right = 1
+            };
+            if (pointer.leftButtonDown()){
+                left = 1
+            }
+        });
+        this.input.on('pointerup', function (pointer) {
+            if (!pointer.rightButtonDown()){
+                right = 0
+            };
+            if (!pointer.leftButtonDown()){
+                left = 0
+            }
+        });
 
 
     },
@@ -89,5 +98,14 @@ var sc_play1 = new Phaser.Class({
         //Apuntador
         var angle=Phaser.Math.Angle.Between(shooter.x,shooter.y,input.x,input.y)-Math.PI/1.35;
         shooter.setRotation(angle);
+
+
+        if (right == 1){
+            console.log(input)
+        };
+        if (left == 1){
+            shooter.thrust(0.01)
+        }
+        
     }
 });
