@@ -23,21 +23,31 @@ var sc_play2 = new Phaser.Class({
         var background = this.add.sprite(0, 0, 'i_fondo_s');
         background.setOrigin(0, 0);
 
-        //this.matter.world.setBounds();
+        this.matter.world.setBounds();
         this.matter.set30Hz();
 
-        cosos = this.matter.add.imageStack('i_alien', null, 0, 1, 1, 2, 0, 0, {
+        /*cosos = this.matter.add.imageStack('i_alien', null, 0, 1, 1, 2, 0, 0, {
             mass: 0.01,
             ignorePointer: true,
             inertia: Infinity,
             frictionAir: 0,
-            friction: 0,
-            setVelocityX: 10 
+            friction: 0
         });
-       
-        
-        //this.matter.setVelocity(cosos, 10, 0);
-        //this.matter.add.mouseSpring();
+        */
+        cosos = this.matter.add.sprite(500, 100,'i_alien', null, {
+            mass: 1,
+            inertia: Infinity,
+            ignoreGravity: false,
+            frictionAir: 0,
+            friction: 0,
+            plugin: {
+                attractors: [
+                    Phaser.Physics.Matter.Matter.Plugin.resolve("matter-attractors").Attractors.gravity
+                ]
+            }
+        });
+
+        cosos.setVelocity(0.6, 0);
 
         var sun = this.matter.add.sprite(500, 250, 'i_sun', null, {
             mass: 200,
