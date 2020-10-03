@@ -33,7 +33,7 @@ var sc_menu = new Phaser.Class({
             opcion2.clearTint();
         });
         opcion2.on('pointerdown', ()=>{
-            this.scene.start('cs_play2')
+            this.scene.start('sc_play2')
         });
     }
 });

@@ -9,7 +9,7 @@ var sc_play2 = new Phaser.Class({
 
     preload ()
     {
-        this.load.image('i_sun', 'assets/sun.png');
+        this.load.image('i_sun', 'assets/tierra.png');
         this.load.image('i_alien', 'assets/space-baddie.png');
         this.load.image('i_fondo_s', 'assets/espacio-exterior.png')
     },
@@ -21,23 +21,23 @@ var sc_play2 = new Phaser.Class({
         // this.matter.enableAttractorPlugin();
         var background = this.add.sprite(0, 0, 'i_fondo_s')
         background.setOrigin(0, 0);
-        /*
-        this.matter.world.setBounds();
+
+        //this.matter.world.setBounds();
         this.matter.world.getDelta = function (time, delta) { return delta; };
 
 
         var cosos = this.matter.add.imageStack('i_alien', null, 0, 1, 1, 2, 0, 0, {
-            mass: 1,
+            mass: 0.1,
             ignorePointer: true,
             inertia: Infinity,
             frictionAir: 0,
             friction: 0
         });
 
-        this.cosos.matter.add.mouseSpring();
+        //this.matter.add.mouseSpring();
 
-        var sun = this.matter.add.image(400, 200, 'i_sun', null, {
-            mass: 200,
+        var sun = this.matter.add.sprite(400, 200, 'i_sun', null, {
+            mass: 2000,
             isStatic: true,
             shape: {
                 type: 'circle',
@@ -49,7 +49,7 @@ var sc_play2 = new Phaser.Class({
                 ]
             }
         });
-        */
+        
         
 
 
