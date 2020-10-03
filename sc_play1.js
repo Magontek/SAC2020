@@ -7,6 +7,7 @@ var sc_play1 = new Phaser.Class({
         },
 
 
+
     preload (){
         this.load.image('i_fondo', 'assets/fondo_menu.jpg');
         this.load.image('i_red', 'assets/red.png');
@@ -50,16 +51,25 @@ var sc_play1 = new Phaser.Class({
         
 
         //SATELITE
-        //this.add.group(this shooter = this.matter.add.image(400, 100, 'i_shooter'));
-        //var shooter = this.matter.add.image(400, 100, 'i_shooter');
-        //this.shooter.setInteractive({ cursor: 'url(assets/input/mira_dark.cur), pointer' });
-        //emitter.startFollow(this.shooter);
-
-
+        //var shooter = this.matter.add.sprite(200,100,'i_shooter');
+        
+        shooter = this.add.sprite(200,100,'i_shooter');
+        shooter.setInteractive({ cursor: 'url(assets/input/mira_dark.cur), pointer' });
+        emitter.startFollow(shooter);
+        center = new Phaser.Geom.Point(game.config.width / 2,game.config.height / 2);
+        //input=this.input;
+        
     },
+
     update(){
-        //Phaser.Actions.RotateAroundDistance(this.shooter,{ x: game.config.width / 2, y: game.config.height / 2 }, 0.02, 200);
+        Phaser.Actions.RotateAroundDistance(shooter,center, 0.02, 200);
+        //var shooter_pointer_angle = 
+
+
+    //angle between mouse and ball
+    //var angle=Phaser.Math.Angle.Between(shooter.x,shooter.y,input.x,input.y);
+    //rotation cannon
+    //shooter.setRotation(angle);
+
     }
 });
-
-
