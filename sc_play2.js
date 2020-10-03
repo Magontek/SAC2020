@@ -24,16 +24,18 @@ var sc_play2 = new Phaser.Class({
         background.setOrigin(0, 0);
 
         //this.matter.world.setBounds();
-        this.matter.set60Hz();
+        this.matter.set30Hz();
 
-        var cosos = this.matter.add.imageStack('i_alien', null, 0, 1, 1, 2, 0, 0, {
+        cosos = this.matter.add.imageStack('i_alien', null, 0, 1, 1, 2, 0, 0, {
             mass: 0.01,
             ignorePointer: true,
             inertia: Infinity,
             frictionAir: 0,
-            friction: 0
+            friction: 0,
+            setVelocityX: 10 
         });
-
+       
+        
         //this.matter.setVelocity(cosos, 10, 0);
         //this.matter.add.mouseSpring();
 

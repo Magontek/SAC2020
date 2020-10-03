@@ -7,7 +7,7 @@ var config = {
         parent: 'phaser-example',
 	    physics: {
 	        default: 'matter',
-			 matter: {
+			matter: {
 	            gravity: {
 	                scale: 0
 	            },
@@ -17,5 +17,7 @@ var config = {
 	        }
 	    },
 };
+
+var cosos;
 
 var game = new Phaser.Game(config);
