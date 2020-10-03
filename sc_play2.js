@@ -9,8 +9,9 @@ var sc_play2 = new Phaser.Class({
 
     preload ()
     {
-        this.load.image('sun', 'assets/sun.png');
-        this.load.image('alien', 'assets/space-baddie.png');
+        this.load.image('i_sun', 'assets/sun.png');
+        this.load.image('i_alien', 'assets/space-baddie.png');
+        this.load.image('i_fondo_s', 'assets/espacio-exterior.png')
     },
 
     
@@ -18,12 +19,14 @@ var sc_play2 = new Phaser.Class({
 
         //  You can enable the Attractors plugin either via the game config (see above), or explicitly in code:
         // this.matter.enableAttractorPlugin();
-
+        var background = this.add.sprite(0, 0, 'i_fondo_s')
+        background.setOrigin(0, 0);
+        /*
         this.matter.world.setBounds();
         this.matter.world.getDelta = function (time, delta) { return delta; };
 
 
-        var cosos = this.matter.add.imageStack('alien', null, 0, 1, 1, 2, 0, 0, {
+        var cosos = this.matter.add.imageStack('i_alien', null, 0, 1, 1, 2, 0, 0, {
             mass: 1,
             ignorePointer: true,
             inertia: Infinity,
@@ -31,9 +34,9 @@ var sc_play2 = new Phaser.Class({
             friction: 0
         });
 
-        cosos.matter.add.mouseSpring();
+        this.cosos.matter.add.mouseSpring();
 
-        var sun = this.matter.add.image(400, 200, 'sun', null, {
+        var sun = this.matter.add.image(400, 200, 'i_sun', null, {
             mass: 200,
             isStatic: true,
             shape: {
@@ -42,11 +45,11 @@ var sc_play2 = new Phaser.Class({
             },
             plugin: {
                 attractors: [
-                    //Phaser.Physics.Matter.Matter.Plugin.resolve("matter-attractors").Attractors.gravity
+                    Phaser.Physics.Matter.Matter.Plugin.resolve("matter-attractors").Attractors.gravity
                 ]
             }
         });
-
+        */
         
 
 
