@@ -17,5 +17,4 @@ var config = {
 	        }
 	    },
 };
-//var shooter;
 var game = new Phaser.Game(config);

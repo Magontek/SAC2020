@@ -13,12 +13,16 @@ var sc_play1 = new Phaser.Class({
         this.load.image('i_red', 'assets/red.png');
         this.load.image('i_shooter', 'assets/satelite_laser.png');
         this.load.image('i_opciones', 'assets/opciones.png');
+        this.load.image('i_alien', 'assets/space-baddie.png');
     },
 
     
     create (){
 
+        //MOUSE
         this.input.setDefaultCursor('url(assets/input/mira.cur), pointer');
+
+
         var background = this.add.sprite(0, 0, 'i_fondo')
         background.setOrigin(0, 0);
 
@@ -39,6 +43,13 @@ var sc_play1 = new Phaser.Class({
         //FIN BOTON PAUSA
 
 
+        var cosos = this.matter.add.imageStack('i_alien', null, 0, 1, 1, 2, 0, 400, {
+            mass: 1,
+            ignorePointer: true,
+            inertia: Infinity,
+            frictionAir: 0,
+            friction: 0
+        });
 
 
         var particles = this.add.particles('i_red');
@@ -51,25 +62,22 @@ var sc_play1 = new Phaser.Class({
         
 
         //SATELITE
-        //var shooter = this.matter.add.sprite(200,100,'i_shooter');
-        
+        shooter = this.shooter;
         shooter = this.add.sprite(200,100,'i_shooter');
         shooter.setInteractive({ cursor: 'url(assets/input/mira_dark.cur), pointer' });
         emitter.startFollow(shooter);
+
+        //OTROS
         center = new Phaser.Geom.Point(game.config.width / 2,game.config.height / 2);
-        //input=this.input;
+        input=this.input;
         
+
+
     },
 
     update(){
-        Phaser.Actions.RotateAroundDistance(shooter,center, 0.02, 200);
-        //var shooter_pointer_angle = 
-
-
-    //angle between mouse and ball
-    //var angle=Phaser.Math.Angle.Between(shooter.x,shooter.y,input.x,input.y);
-    //rotation cannon
-    //shooter.setRotation(angle);
-
+        //Apuntador
+        var angle=Phaser.Math.Angle.Between(shooter.x,shooter.y,input.x,input.y)-Math.PI/1.35;
+        shooter.setRotation(angle);
     }
 });
