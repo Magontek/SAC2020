@@ -9,12 +9,6 @@ var sc_play1 = new Phaser.Class({
             var variable = [];
         },
 
-<<<<<<< HEAD
-    
-=======
-
-
->>>>>>> gruvix
     preload (){
         this.load.image('i_fondo', 'assets/fondo_menu.jpg');
         this.load.image('i_red', 'assets/red.png');

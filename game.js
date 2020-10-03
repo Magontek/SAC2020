@@ -17,10 +17,7 @@ var config = {
 	        }
 	    },
 };
-<<<<<<< HEAD
 
 var cosos;
 
-=======
->>>>>>> gruvix
 var game = new Phaser.Game(config);
