@@ -21,7 +21,7 @@ var sc_menu = new Phaser.Class({
             opcion1.clearTint();
         });
         opcion1.on('pointerdown', ()=>{
-            this.scene.start('sc_play')
+            this.scene.start('sc_play1')
         });
 
 
@@ -33,7 +33,7 @@ var sc_menu = new Phaser.Class({
             opcion2.clearTint();
         });
         opcion2.on('pointerdown', ()=>{
-            this.scene.start('orbiter_play')
+            this.scene.start('sc_play2')
         });
     }
 });

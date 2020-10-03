@@ -18,7 +18,7 @@ var sc_play1 = new Phaser.Class({
     create (){
 
         this.input.setDefaultCursor('url(assets/input/mira.cur), pointer');
-        var background = this.add.sprite(0, 0, 'fondo')
+        var background = this.add.sprite(0, 0, 'i_fondo')
         background.setOrigin(0, 0);
 
 
@@ -47,24 +47,18 @@ var sc_play1 = new Phaser.Class({
             scale: { start: 1, end: 0 },
             blendMode: 'ADD'
         });
-
-        var logo = this.physics.add.image(400, 100, 'i_logo').setInteractive({ cursor: 'url(assets/input/mira_dark.cur), pointer' });
-
-        logo.setVelocity(100, 200);
-        logo.setBounce(1, 1);
-        logo.setCollideWorldBounds(true);
-
         
 
-        //satelite
-        var shooter = this.physics.add.image(400, 100, 'i_shooter');
-        shooter.setInteractive({ cursor: 'url(assets/input/mira_dark.cur), pointer' });
-        emitter.startFollow(shooter);
+        //SATELITE
+        //this.add.group(this shooter = this.matter.add.image(400, 100, 'i_shooter'));
+        //var shooter = this.matter.add.image(400, 100, 'i_shooter');
+        //this.shooter.setInteractive({ cursor: 'url(assets/input/mira_dark.cur), pointer' });
+        //emitter.startFollow(this.shooter);
 
 
     },
     update(){
-        Phaser.Actions.RotateAroundDistance(shooter(),{ x: game.config.width / 2, y: game.config.height / 2 }, 0.02, 200);
+        //Phaser.Actions.RotateAroundDistance(this.shooter,{ x: game.config.width / 2, y: game.config.height / 2 }, 0.02, 200);
     }
 });
 
