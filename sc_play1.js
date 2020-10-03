@@ -1,12 +1,15 @@
 //Escena JUEGO
 var sc_play1 = new Phaser.Class({
+    
+
     Extends: Phaser.Scene,
     initialize:
         function sc_play1(){
             Phaser.Scene.call(this, { key: 'sc_play1'});
+            var variable = [];
         },
 
-
+    
     preload (){
         this.load.image('i_fondo', 'assets/fondo_menu.jpg');
         this.load.image('i_red', 'assets/red.png');

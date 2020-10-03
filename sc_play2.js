@@ -17,27 +17,28 @@ var sc_play2 = new Phaser.Class({
     
     create (){
 
+        
         //  You can enable the Attractors plugin either via the game config (see above), or explicitly in code:
         // this.matter.enableAttractorPlugin();
-        var background = this.add.sprite(0, 0, 'i_fondo_s')
+        var background = this.add.sprite(0, 0, 'i_fondo_s');
         background.setOrigin(0, 0);
 
         //this.matter.world.setBounds();
-        this.matter.world.getDelta = function (time, delta) { return delta; };
-
+        this.matter.set60Hz();
 
         var cosos = this.matter.add.imageStack('i_alien', null, 0, 1, 1, 2, 0, 0, {
-            mass: 0.1,
+            mass: 0.01,
             ignorePointer: true,
             inertia: Infinity,
             frictionAir: 0,
             friction: 0
         });
 
+        //this.matter.setVelocity(cosos, 10, 0);
         //this.matter.add.mouseSpring();
 
-        var sun = this.matter.add.sprite(400, 200, 'i_sun', null, {
-            mass: 2000,
+        var sun = this.matter.add.sprite(500, 250, 'i_sun', null, {
+            mass: 200,
             isStatic: true,
             shape: {
                 type: 'circle',
@@ -49,10 +50,6 @@ var sc_play2 = new Phaser.Class({
                 ]
             }
         });
-        
-        
-
-
     },
     update(){
         

@@ -7,7 +7,7 @@ var config = {
         parent: 'phaser-example',
 	    physics: {
 	        default: 'matter',
-	        matter: {
+			 matter: {
 	            gravity: {
 	                scale: 0
 	            },
