@@ -25,6 +25,15 @@ var sc_menu = new Phaser.Class({
         });
 
 
-        var opcion2 = this.add.sprite(game.config.width / 2, game.config.height / 2 + 60, 'boton');
+        var opcion2 = this.add.sprite(game.config.width / 2, game.config.height / 2 + 60, 'boton').setInteractive();
+        opcion2.on('pointerover', function() {
+            opcion2.setTint(0x7878ff);
+        });
+        opcion2.on('pointerout', function() {
+            opcion2.clearTint();
+        });
+        opcion2.on('pointerdown', ()=>{
+            this.scene.start('orbiter_play')
+        });
     }
 });
