@@ -14,6 +14,8 @@ var sc_play1 = new Phaser.Class({
         this.load.image('i_shooter', 'assets/satelite_laser.png');
         this.load.image('i_opciones', 'assets/opciones.png');
         this.load.image('i_alien', 'assets/space-baddie.png');
+
+        this.load.image('i_target', 'assets/input/red.png');
     },
 
     
@@ -21,9 +23,18 @@ var sc_play1 = new Phaser.Class({
 
         //MOUSE
         this.input.setDefaultCursor('url(assets/input/mira.cur), pointer');
+        cursor=this.input.keyboard.createCursorKeys();
+        /*this.input.on('pointerdown', function (pointer){
+            if (pointer.leftButtonDown()){
+                console.log(input)
+            };
+            if (pointer.rightButtonDown()){
+                shooter.thrust(0.4);
+            }
 
+        });*/
 
-        var background = this.add.sprite(0, 0, 'i_fondo')
+        var background = this.add.sprite(0, 0, 'i_fondo');
         background.setOrigin(0, 0);
 
 
@@ -66,7 +77,6 @@ var sc_play1 = new Phaser.Class({
         shooter = this.add.sprite(200,100,'i_shooter');
         shooter.setInteractive({ cursor: 'url(assets/input/mira_dark.cur), pointer' });
         emitter.startFollow(shooter);
-
         //OTROS
         center = new Phaser.Geom.Point(game.config.width / 2,game.config.height / 2);
         input=this.input;
