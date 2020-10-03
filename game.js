@@ -3,7 +3,7 @@ var config = {
         type: Phaser.AUTO,
         width: 940,
         height: 528,
-        scene: [sc_menu,sc_play1,sc_play2], //ESTO ES NECESARIO, SE AGREGAN TODAS LAS ESCENAS ACÁ
+        scene: [sc_menu, sc_play1, sc_play2],
         parent: 'phaser-example',
 	    physics: {
 	        default: 'matter',
@@ -17,7 +17,10 @@ var config = {
 	        }
 	    },
 };
+<<<<<<< HEAD
 
 var cosos;
 
+=======
+>>>>>>> gruvix
 var game = new Phaser.Game(config);

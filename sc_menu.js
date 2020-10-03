@@ -8,6 +8,7 @@ var sc_menu = new Phaser.Class({
         this.load.image('boton', 'assets/button.png')
     },
     create(){
+        this.input.mouse.disableContextMenu();
         texto = this.add.text(game.config.width / 2, game.config.height / 2 - 150, 'Menu Principal', {
             fontSize: '40px',
             fill: '#ffffff'
