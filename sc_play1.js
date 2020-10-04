@@ -79,12 +79,26 @@ var sc_play1 = new Phaser.Class({
 
         //fuego sat
         var particles = this.add.particles('i_red');
-        var fuego = particles.createEmitter({
+               
+
+        //SATELITE
+        shooter = this.shooter;
+        shooter = this.matter.add.sprite(200,100,'i_shooter', null, {
+            mass: 0.01,
+            ignorePointer: true,
+            inertia: Infinity,
+            frictionAir: 0,
+            friction: 0
+        });
+
+        shooter.setInteractive({ cursor: 'url(assets/input/mira_dark.cur), pointer' });
+
+        fuego = particles.createEmitter({
             speed: { min: 400, max: 600 },
             angle: {
                 onEmit: function (particle, key, t, value)
                 {
-                    return prop_on;
+                    return shooter.angle-90;
                 }
             },
             on: {
@@ -97,21 +111,10 @@ var sc_play1 = new Phaser.Class({
             scale: { start: 0.5, end: 2 },
             alpha: { start: 0.5, end: 0 },
             blendMode: 'ADD',
-        });        
 
-        //SATELITE
-        shooter = this.shooter;
-        shooter = this.matter.add.sprite(200,100,'i_shooter', null, {
-            mass: 0.01,
-            ignorePointer: true,
-            inertia: Infinity,
-            frictionAir: 0,
-            friction: 0
-        });
-        shooter.setInteractive({ cursor: 'url(assets/input/mira_dark.cur), pointer' });
+        });        
         
         fuego.startFollow(shooter);
-
 
         //BARRAS DE COMBUSTIBLE Y ENERGIA
         gasbar = this.add.graphics();
@@ -179,12 +182,13 @@ var sc_play1 = new Phaser.Class({
             });
 
             cosos.scale=esc_rnd;
-            cosos.setInteractive();
-            cosos.on('pointerdown', ()=>{
-            if(energytotal > 0){
-                cosos.applyForceFrom(shooter.x,shooter.y, 0.000000001)
-            }
-        });
+
+            cosos.setInteractive({draggable: false});
+            /*cosos.on('pointerdown', ()=>{
+                if(energytotal > 0){
+                    cosos.applyForceFrom(shooter.x,shooter.y, 0.000000001)
+                }
+            });*/
             // asignacion de velocidad
             // constante de gravitacion G*M mas o menos 54
             // la velocidad es perpendicular, por lo que giro pi/2 y calculo seno y coseno
@@ -198,6 +202,9 @@ var sc_play1 = new Phaser.Class({
             cosos.setVelocity(dir_vec.x*mag_vec,dir_vec.y*mag_vec);
            
         }
+
+        pium = this.matter.add.pointerConstraint();
+
         // si el objeto es la tierra, borra el otro
         this.matter.world.on('collisionstart', function (event, bodyA, bodyB) {
             if (bodyA.label==='tierra'){
@@ -234,7 +241,7 @@ var sc_play1 = new Phaser.Class({
         };
 
         //PROPULSION Y BARRAS DE ESTADO
-        var pointer = this.input.activePointer;
+        var pointer = this.input.activePointer;//&& !tierra.on('pointerdown')
         if (pointer.leftButtonDown() && energytotal > 0 && can_shoot == true){
             var line = this.add.line(0,0,shooter.x,shooter.y,input.x,input.y,0xe74c3c).setOrigin(0, 0);
             this.time.addEvent({

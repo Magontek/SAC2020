@@ -71,7 +71,7 @@ var sc_play2 = new Phaser.Class({
         //fuego sat
         
         var particles = this.add.particles('i_red');
-        var fuego = particles.createEmitter({
+        fuego = particles.createEmitter({
             speed: { min: 400, max: 600 },
             angle: {
                 onEmit: function (particle, key, t, value)
@@ -138,6 +138,8 @@ var sc_play2 = new Phaser.Class({
         // BASURA
         var center= new Phaser.Math.Vector2(game.config.width / 2,game.config.height / 2);
         console.log(center);
+
+        cosos = this.matter.world.nextGroup();
         for (var i = 0; i < 10; i++)
         {
             // generacion aleatoria de angulos
@@ -152,8 +154,8 @@ var sc_play2 = new Phaser.Class({
 
             //rand de escala
             esc_rnd=Phaser.Math.RND.frac()*0.5+0.1;
-            cosos = this.matter.add.sprite(vec_n.x+center.x,vec_n.y+center.y,'trash', i, {
-                label: 'coso',
+            coso = this.matter.add.sprite(vec_n.x+center.x,vec_n.y+center.y,'trash', i, {
+                label: 'coso' + i,
                 mass: 0.001,
                 inertia: Infinity,
                 ignoreGravity: false,
@@ -168,13 +170,13 @@ var sc_play2 = new Phaser.Class({
                         Phaser.Physics.Matter.Matter.Plugin.resolve("matter-attractors").Attractors.gravity
                     ]
                 }
-            });
+            }).setCollisionGroup(cosos);
 
-            cosos.scale=esc_rnd;
-            cosos.setInteractive();
-            cosos.on('pointerdown', ()=>{
+            coso.scale=esc_rnd;
+            coso.setInteractive();
+            coso.on('pointerdown', ()=>{
             if(energytotal > 0){
-                cosos.applyForceFrom(shooter.x,shooter.y, 0.000000001)
+                coso.applyForceFrom(shooter.x,shooter.y, 0.000000001)
             }
         });
             // asignacion de velocidad
@@ -187,7 +189,7 @@ var sc_play2 = new Phaser.Class({
             dir_vec=vec_n.rotate(3.1416/2).normalize();
             //console.log(dir_vec);
             mag_vec=Math.sqrt(60/r_vec);
-            cosos.setVelocity(dir_vec.x*mag_vec,dir_vec.y*mag_vec);
+            coso.setVelocity(dir_vec.x*mag_vec,dir_vec.y*mag_vec);
            
         }
         // si el objeto es la tierra, borra el otro
