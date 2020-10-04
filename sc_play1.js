@@ -78,7 +78,6 @@ var sc_play1 = new Phaser.Class({
         });
 
         //fuego sat
-        /*
         var particles = this.add.particles('i_red');
         var fuego = particles.createEmitter({
             speed: { min: 400, max: 600 },
@@ -98,33 +97,7 @@ var sc_play1 = new Phaser.Class({
             scale: { start: 0.5, end: 2 },
             alpha: { start: 0.5, end: 0 },
             blendMode: 'ADD',
-        }); */
-         var particles = this.add.particles('i_red');
-        var fuego = particles.createEmitter({
-            speed: { min: 400, max: 600 },
-            gravity: {
-                onEmit: function(){
-                    min: 400, max: 600
-                }
-            },
-            angle: {
-                onEmit: function (particle, key, t, value)
-                {
-                    return prop_on;
-                }
-            },
-            on: {
-                onEmit: function (particle, key, t, value)
-                {
-                    return prop_on;
-                }
-            },
-            lifespan: 100,
-            scale: { start: 0.5, end: 2 },
-            alpha: { start: 0.5, end: 0 },
-            blendMode: 'ADD',
-        }); 
-        
+        });        
 
         //SATELITE
         shooter = this.shooter;
@@ -136,8 +109,9 @@ var sc_play1 = new Phaser.Class({
             friction: 0
         });
         shooter.setInteractive({ cursor: 'url(assets/input/mira_dark.cur), pointer' });
-
+        
         fuego.startFollow(shooter);
+
 
         //BARRAS DE COMBUSTIBLE Y ENERGIA
         gasbar = this.add.graphics();
@@ -241,6 +215,8 @@ var sc_play1 = new Phaser.Class({
     update(){
 
         //APUNTADOR
+        console.log(shooter.body.speed);
+
         var shooter_angle = Phaser.Math.Angle.Between(shooter.x,shooter.y,input.x,input.y)-Math.PI/2;
         var shooter_angledelta = Phaser.Math.Angle.Wrap(shooter_angle - shooter.rotation);
         if (shooter_angledelta > 0.1 && shooter_angledelta < Math.PI){
@@ -249,6 +225,7 @@ var sc_play1 = new Phaser.Class({
         else{
             if(shooter_angledelta == 0 ){
                 shooter.setAngularVelocity(0)
+
             }
 
             else{
@@ -270,7 +247,7 @@ var sc_play1 = new Phaser.Class({
             energytotal -= 0.3;
             energybar.scaleX = energytotal/100;
             energyname.x =(game.config.width / 2 - 30) * energytotal/100;
-            //var touchers = Phaser.Types.Physics.Matter.MatterBody.intersectPoint(input.x,input.y);
+            //var touchers = get.Phaser.Types.Physics.Matter.MatterBody.intersectPoint(input.x,input.y);
             //console.log(touchers);
         };
         if (energytotal < 100){
@@ -279,6 +256,7 @@ var sc_play1 = new Phaser.Class({
             energyname.x =(game.config.width / 2 - 30) * energytotal/100
         }
         if (pointer.rightButtonDown() && gastotal > 0){
+
             shooter.thrustRight(0.0000003);
             gastotal -= 0.06;
             gasbar.scaleX = gastotal/100
