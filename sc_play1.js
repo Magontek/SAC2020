@@ -75,7 +75,7 @@ var sc_play1 = new Phaser.Class({
         input=this.input;
         var left = this.left;
         var right = this.right;
-
+/*
         var particles = this.add.particles('i_red');
         var emitter = particles.createEmitter({
         speed: {
@@ -101,7 +101,7 @@ var sc_play1 = new Phaser.Class({
         angle: {onEmit: function(shooter,input) Phaser.Math.Angle.Between(shooter.x,shooter.y,input.x,input.y)}
     });
         emitter.startFollow(shooter);
-
+*/
 
     },
 
