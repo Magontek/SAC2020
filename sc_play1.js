@@ -68,14 +68,19 @@ var sc_play1 = new Phaser.Class({
 
         //SATELITE
         shooter = this.shooter;
-        shooter = this.matter.add.sprite(200,100,'i_shooter');
+        shooter = this.matter.add.sprite(200,100,'i_shooter', {
+            ignorePointer: true,
+            inertia: Infinity,
+            frictionAir: 0,
+            friction: 0
+        });
         shooter.setInteractive({ cursor: 'url(assets/input/mira_dark.cur), pointer' });
         //OTROS
-        center = new Phaser.Geom.Point(game.config.width / 2,game.config.height / 2);
+        center = new Phaser.Geom.Point(game.config.width / 2, game.config.height / 2);
         input=this.input;
         var left = this.left;
         var right = this.right;
-/*
+
         var particles = this.add.particles('i_red');
         var emitter = particles.createEmitter({
         speed: {
@@ -98,10 +103,10 @@ var sc_play1 = new Phaser.Class({
         },
         scale: { start: 5, end: 0 },
         blendMode: 'ADD',
-        angle: {onEmit: function(shooter,input) Phaser.Math.Angle.Between(shooter.x,shooter.y,input.x,input.y)}
+        rotate: Phaser.Math.Angle.Between(shooter.x,shooter.y,input.x,input.y)+Math.PI/5
     });
         emitter.startFollow(shooter);
-*/
+
 
     },
 
