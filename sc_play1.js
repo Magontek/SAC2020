@@ -184,7 +184,7 @@ var sc_play1 = new Phaser.Class({
 
             cosos.scale=esc_rnd;
 
-            cosos.setInteractive({ cursor: 'url(assets/input/mira_dark.cur), pointer' });
+            cosos.setInteractive({ cursor: 'url(assets/input/mira_shooting.cur), pointer' });
             cosos.on('pointerover', function(){
                 este_coso = this;
                 console.log(este_coso);
@@ -260,7 +260,8 @@ var sc_play1 = new Phaser.Class({
 
             //Impulsa el coso cuando haces click
             if(este_coso!=null){
-                este_coso.applyForceFrom(new Phaser.Math.Vector2(shooter.x,shooter.y), new Phaser.Math.Vector2(0.00001,0));
+                var pos_nave=new Phaser.Math.Vector2(shooter.x,shooter.y)
+                este_coso.applyForceFrom(pos_nave, pos_nave.normalize().scale(0.00000001));
             }
             
         };
