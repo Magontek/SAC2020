@@ -55,23 +55,15 @@ var sc_play1 = new Phaser.Class({
         
         var particles = this.add.particles('i_red');
         var fuego = particles.createEmitter({
-            speed: 5,
-            on: false,
-            lifespan: {
-                onEmit: function (particle, key, t, value)
-                {
-                    return Phaser.Math.Percent(shooter.body.speed, 0, 300) * 20000;
-                }
-            },
-            alpha:{
-                onEmit: function (particle, key, t, value)
-                {
-                    return Phaser.Math.Percent(shooter.body.speed, 0, 300) * 1000;
-                }
-            },
-            scale: { start: 0.5, end: 0 },
+            speed: { min: 400, max: 600 },
+            angle: 0,
+            on: true,
+            lifespan: 100,
+            scale: { start: 0.5, end: 2 },
+            alpha: { start: 0.5, end: 0 },
             blendMode: 'ADD',
         }); 
+        fuego.angle.onEmit(shooter.angle);
         fuego.startFollow(shooter);
 
         //BARRAS DE COMBUSTIBLE Y ENERGIA
@@ -161,13 +153,9 @@ var sc_play1 = new Phaser.Class({
         }
         if (pointer.rightButtonDown() && gastotal > 0){
             shooter.thrustRight(0.0001);
-            fuego.on=true;
             gastotal -= 0.03;
             gasbar.scaleX = gastotal/100
             gasname.x =(game.config.width / 2 - 20) * gastotal/100
-        }
-        else{
-            fuego.on=false;
         };
 
     }
