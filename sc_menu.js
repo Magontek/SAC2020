@@ -6,18 +6,20 @@ var sc_menu = new Phaser.Class({
         },
     preload (){
         this.load.image('boton', 'assets/button.png')
+        this.load.image('play', 'assets/boton_play.png')
+        this.load.image('sound', 'assets/boton_sonido.png')
     },
     create(){
         this.input.mouse.disableContextMenu();
-        texto = this.add.text(game.config.width / 2, 150, 'Menu Principal', {
-            fontSize: '40px',
+        texto = this.add.text(game.config.width / 2, 150, 'Scrap Pusher RL', {
+            fontSize: '60px',
             fill: '#ffffff'
         }).setOrigin(0.5);
 
         //OPCION JUGAR
-        var opcion1 = this.add.sprite(game.config.width / 2, game.config.height / 2, 'boton').setInteractive();
+        var opcion1 = this.add.sprite(game.config.width / 2, game.config.height / 2 - 150, 'play').setInteractive();
         opcion1.on('pointerover', function() {
-            opcion1.setTint(0x7878ff);
+            opcion1.setTint(0xe7b33c);
         });
         opcion1.on('pointerout', function() {
             opcion1.clearTint();
@@ -27,9 +29,9 @@ var sc_menu = new Phaser.Class({
         });
 
         //OPCION SONIDO
-        var opcion2 = this.add.sprite(game.config.width / 2, game.config.height / 2 + 60, 'boton').setInteractive();
+        var opcion2 = this.add.sprite(game.config.width - 400, game.config.height - 160, 'sound').setInteractive();
         opcion2.on('pointerover', function() {
-            opcion2.setTint(0x7878ff);
+            opcion2.setTint(0x99df93);
         });
         opcion2.on('pointerout', function() {
             opcion2.clearTint();
