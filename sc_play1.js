@@ -241,17 +241,8 @@ var sc_play1 = new Phaser.Class({
         };
 
         //PROPULSION Y BARRAS DE ESTADO
-<<<<<<< HEAD
         var pointer = this.input.activePointer;//&& !tierra.on('pointerdown')
-        if (pointer.leftButtonDown() && energytotal > 0){
-
-            console.log(pium.getBody());
-
-            energytotal -= 0.15;
-=======
-        var pointer = this.input.activePointer;
         if (pointer.leftButtonDown() && energytotal > 0 && can_shoot == true){
->>>>>>> eeade32b3bf1318edb3ec867b30044209e33a481
             var line = this.add.line(0,0,shooter.x,shooter.y,input.x,input.y,0xe74c3c).setOrigin(0, 0);
             this.time.addEvent({
                 delay: 40,
