@@ -32,6 +32,7 @@ var sc_play1 = new Phaser.Class({
         //BACKGROUND
         var background = this.add.sprite(0, 0, 'i_fondo');
         background.setOrigin(0, 0);
+        background.setScale(2);
 
         // TIERRA
         var tierra = this.matter.add.sprite(game.config.width / 2,game.config.height / 2, 'i_sun', null, {
@@ -94,7 +95,7 @@ var sc_play1 = new Phaser.Class({
         //SATELITE
         shooter = this.shooter;
         shooter = this.matter.add.sprite(200,100,'i_shooter', null, {
-            mass: 1,
+            mass: 6,
             ignorePointer: true,
             inertia: Infinity,
             frictionAir: 0,
@@ -109,10 +110,10 @@ var sc_play1 = new Phaser.Class({
         gasbar.fillStyle(0x48c9b0,1);
         gasbar.fillRect(0, 0, game.config.width, 20);
         gasbar.x = 0;
-        gasbar.y = game.config.height - 20;
+        gasbar.y = game.config.height - 41;
         gastotal = this.gastotal;
         gastotal = 100;
-        gasname = this.add.text(game.config.width / 2 - 20, game.config.height - 20, 'Fuel', {
+        gasname = this.add.text(game.config.width / 2 - 20, game.config.height - 40, 'Fuel', {
             fontSize: '19px',
             fill: '#34495e'
         });
@@ -121,10 +122,10 @@ var sc_play1 = new Phaser.Class({
         energybar.fillStyle(0xf4d03f,1);
         energybar.fillRect(0, 0, game.config.width, 20);
         energybar.x = 0;
-        energybar.y = game.config.height - 40;
+        energybar.y = game.config.height - 20;
         energytotal = this.gastotal;
         energytotal = 100;
-        energyname = this.add.text(game.config.width / 2 - 30, game.config.height - 41, 'Energy', {
+        energyname = this.add.text(game.config.width / 2 - 30, game.config.height - 21, 'Energy', {
             fontSize: '18px',
             fill: ' #d35400'
         });
@@ -209,7 +210,7 @@ var sc_play1 = new Phaser.Class({
         var shooter_angle = Phaser.Math.Angle.Between(shooter.x,shooter.y,input.x,input.y)-Math.PI/2;
         var shooter_angledelta = Phaser.Math.Angle.Wrap(shooter_angle - shooter.rotation);
         if (shooter_angledelta > 0 && shooter_angledelta < Math.PI){
-            shooter.setAngularVelocity(0.02)
+            shooter.setAngularVelocity(0.04)
         }
         else{
             if(shooter_angledelta == 0){
@@ -217,17 +218,17 @@ var sc_play1 = new Phaser.Class({
             }
 
             else{
-                shooter.setAngularVelocity(-0.02)
+                shooter.setAngularVelocity(-0.04)
             }
         };
 
         //PROPULSION Y BARRAS DE ESTADO
         var pointer = this.input.activePointer;
         if (pointer.leftButtonDown() && energytotal > 0){
-            energytotal -= 0.2;
+            energytotal -= 0.15;
             var line = this.add.line(0,0,shooter.x,shooter.y,input.x,input.y,0xe74c3c).setOrigin(0, 0);
             this.time.addEvent({
-                delay: 50,
+                delay: 40,
                 callback: ()=>{
                     line.destroy()
                     },
@@ -237,13 +238,13 @@ var sc_play1 = new Phaser.Class({
             energyname.x =(game.config.width / 2 - 30) * energytotal/100
         };
         if (energytotal < 100){
-            energytotal += 0.02;
+            energytotal += 0.06;
             energybar.scaleX = energytotal/100
             energyname.x =(game.config.width / 2 - 30) * energytotal/100
         }
         if (pointer.rightButtonDown() && gastotal > 0){
-            shooter.thrustRight(0.0001);
-            gastotal -= 0.03;
+            shooter.thrustRight(0.00002);
+            gastotal -= 0.06;
             gasbar.scaleX = gastotal/100
             gasname.x =(game.config.width / 2 - 20) * gastotal/100
             //emitter

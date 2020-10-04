@@ -1,8 +1,8 @@
 // configuracion del juego
 var config = {
         type: Phaser.AUTO,
-        width: 940,
-        height: 528,
+        width: 1880,
+        height: 1056,
         scene: [sc_menu, sc_play1, sc_play2],
         parent: 'phaser-example',
 	    physics: {
