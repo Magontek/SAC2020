@@ -52,26 +52,54 @@ var sc_play1 = new Phaser.Class({
             friction: 0
         });
 
-
+/*
         var particles = this.add.particles('i_red');
 
         var emitter = particles.createEmitter({
             speed: 100,
             scale: { start: 1, end: 0 },
             blendMode: 'ADD'
-        });
-        
+        });       */
+
+
+
+
 
         //SATELITE
         shooter = this.shooter;
         shooter = this.matter.add.sprite(200,100,'i_shooter');
         shooter.setInteractive({ cursor: 'url(assets/input/mira_dark.cur), pointer' });
-        emitter.startFollow(shooter);
         //OTROS
         center = new Phaser.Geom.Point(game.config.width / 2,game.config.height / 2);
         input=this.input;
         var left = this.left;
         var right = this.right;
+
+        var particles = this.add.particles('i_red');
+        var emitter = particles.createEmitter({
+        speed: {
+            onEmit: function (particle, key, t, value)
+            {
+                return shooter.body.speed;
+            }
+        },
+        lifespan: {
+            onEmit: function (particle, key, t, value)
+            {
+                return Phaser.Math.Percent(shooter.body.speed, 0, 300) * 20000;
+            }
+        },
+        alpha: {
+            onEmit: function (particle, key, t, value)
+            {
+                return Phaser.Math.Percent(shooter.body.speed, 0, 300) * 1000;
+            }
+        },
+        scale: { start: 5, end: 0 },
+        blendMode: 'ADD',
+        angle: {onEmit: function(shooter,input) Phaser.Math.Angle.Between(shooter.x,shooter.y,input.x,input.y)}
+    });
+        emitter.startFollow(shooter);
 
 
     },
