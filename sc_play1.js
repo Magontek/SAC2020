@@ -49,7 +49,7 @@ var sc_play1 = new Phaser.Class({
             angle: {
                 onEmit: function (particle, key, t, value)
                 {
-                    return shooter.angle-90;
+                    return prop_on;
                 }
             },
             on: {
@@ -63,8 +63,7 @@ var sc_play1 = new Phaser.Class({
             alpha: { start: 0.5, end: 0 },
             blendMode: 'ADD',
         }); 
-        fuego.angle.onEmit(shooter.angle);
-        fuego.startFollow(shooter);
+        
 
         //SATELITE
         shooter = this.shooter;
@@ -77,7 +76,7 @@ var sc_play1 = new Phaser.Class({
         });
         shooter.setInteractive({ cursor: 'url(assets/input/mira_dark.cur), pointer' });
 
-        
+        fuego.startFollow(shooter);
 
         //BARRAS DE COMBUSTIBLE Y ENERGIA
         gasbar = this.add.graphics();
