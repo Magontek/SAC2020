@@ -51,10 +51,10 @@ var sc_play1 = new Phaser.Class({
         });
         shooter.setInteractive({ cursor: 'url(assets/input/mira_dark.cur), pointer' });
 
-        //EMITTER sat
+        //fuego sat
         
         var particles = this.add.particles('i_red');
-        var emitter = particles.createEmitter({
+        var fuego = particles.createEmitter({
             speed: 5,
             on: false,
             lifespan: {
@@ -69,10 +69,10 @@ var sc_play1 = new Phaser.Class({
                     return Phaser.Math.Percent(shooter.body.speed, 0, 300) * 1000;
                 }
             },
-            scale: { start: 5, end: 0 },
+            scale: { start: 0.5, end: 0 },
             blendMode: 'ADD',
         }); 
-        emitter.startFollow(shooter);
+        fuego.startFollow(shooter);
 
         //BARRAS DE COMBUSTIBLE Y ENERGIA
         gasbar = this.add.graphics();
@@ -145,11 +145,11 @@ var sc_play1 = new Phaser.Class({
             energytotal -= 0.2;
             var line = this.add.line(0,0,shooter.x,shooter.y,input.x,input.y,0xe74c3c).setOrigin(0, 0);
             this.time.addEvent({
-            delay: 50,
-            callback: ()=>{
-                line.destroy()
-                },
-            loop: true
+                delay: 50,
+                callback: ()=>{
+                    line.destroy()
+                    },
+                loop: true
             });
             energybar.scaleX = energytotal/100;
             energyname.x =(game.config.width / 2 - 30) * energytotal/100
@@ -161,9 +161,13 @@ var sc_play1 = new Phaser.Class({
         }
         if (pointer.rightButtonDown() && gastotal > 0){
             shooter.thrustRight(0.0001);
+            fuego.on=true;
             gastotal -= 0.03;
             gasbar.scaleX = gastotal/100
             gasname.x =(game.config.width / 2 - 20) * gastotal/100
+        }
+        else{
+            fuego.on=false;
         };
 
     }
