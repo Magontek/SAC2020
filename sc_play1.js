@@ -49,6 +49,7 @@ var sc_play1 = new Phaser.Class({
                 ]
             }
         });
+        //tierra.setInteractive({ cursor: 'url(assets/input/mira_dark.cur), pointer' });
 
 
         //MOUSE
@@ -223,7 +224,7 @@ var sc_play1 = new Phaser.Class({
         };
 
         //PROPULSION Y BARRAS DE ESTADO
-        var pointer = this.input.activePointer;
+        var pointer = this.input.activePointer;//&& !tierra.on('pointerdown')
         if (pointer.leftButtonDown() && energytotal > 0){
             energytotal -= 0.15;
             var line = this.add.line(0,0,shooter.x,shooter.y,input.x,input.y,0xe74c3c).setOrigin(0, 0);

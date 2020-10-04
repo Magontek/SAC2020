@@ -1,11 +1,11 @@
 //Escena JUEGO
-var sc_play1 = new Phaser.Class({
+var sc_play2 = new Phaser.Class({
     
 
     Extends: Phaser.Scene,
     initialize:
-        function sc_play1(){
-            Phaser.Scene.call(this, { key: 'sc_play1'});
+        function sc_play2(){
+            Phaser.Scene.call(this, { key: 'sc_play2'});
             var variable = [];
         },
 
