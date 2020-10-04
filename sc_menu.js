@@ -1,3 +1,4 @@
+//Escena MENU
 var sc_menu = new Phaser.Class({
     Extends: Phaser.Scene,
     initialize:
