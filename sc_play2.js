@@ -22,7 +22,7 @@ var sc_play2 = new Phaser.Class({
         //var background = this.add.sprite(0, 0, 'i_fondo_s');
         //background.setOrigin(0, 0);
 
-        this.matter.world.setBounds();
+        //this.matter.world.setBounds();
         this.matter.set30Hz();
 
         var tierra = this.matter.add.sprite(game.config.width / 2,game.config.height / 2, 'i_sun', null, {
