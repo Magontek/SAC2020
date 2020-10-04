@@ -34,7 +34,7 @@ ending=0;
 // 3=estacion espacial se daño
 // 4=?
 score=0;
-end_for=0;
+n_basura=0;
 
 function basureadora (posA,posB){
             for (var i = 0; i < 10; i++)

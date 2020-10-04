@@ -83,7 +83,7 @@ var sc_play1 = new Phaser.Class({
                
 
         //SATELITE
-        var vec_s = new Phaser.Math.Vector2(0,120);
+        var vec_s = new Phaser.Math.Vector2(0,110);
         //console.log(vec_n);
         vec_s.rotate(Phaser.Math.RND.rotation());
         shooter = this.shooter;
@@ -273,6 +273,7 @@ var sc_play1 = new Phaser.Class({
                     score+=10;
                     n_basura-=1;
                 } else{
+                    ending=1;
                     this.scene.start('sc_game_over')
                 }
             } else if (bodyB.label==='tierra'){
@@ -283,6 +284,7 @@ var sc_play1 = new Phaser.Class({
                     score+=10;
                     n_basura-=1;
                 } else{
+                    ending=1;
                     this.scene.start('sc_game_over')
                 }
             //Si algo colisiona contra la nave
@@ -315,6 +317,7 @@ var sc_play1 = new Phaser.Class({
                 bodyA.destroy();
                 bodyB.position.x=-100;
                 bodyB.destroy();
+                ending=2;
                 this.time.addEvent({
                 delay: 10000,
                 callback: ()=>{
@@ -323,7 +326,7 @@ var sc_play1 = new Phaser.Class({
                 });
                 
             } else{
-                // genera basura en impacto
+                // genera explosion en impacto
                 explosion.setPosition(bodyA.position.x,bodyA.position.y);
                 explosion.on=true;
                 this.time.addEvent({
@@ -337,10 +340,12 @@ var sc_play1 = new Phaser.Class({
                 bodyB.position.x=-100;
                 bodyB.destroy();
                 score-=10;
+                n_basura-=2;
             }
             ;
         });
-        scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#fff' });
+        scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#fff' });
+        trashleft = this.add.text(16, 48, 'Trash left: 0', { fontSize: '32px', fill: '#fff' });
     },
 
 
@@ -348,6 +353,7 @@ var sc_play1 = new Phaser.Class({
         // puntaje
 
         scoreText.setText('Score: ' + score);
+        trashleft.setText('Trash left: ' + n_basura);
 
         //APUNTADOR
         var shooter_angle = Phaser.Math.Angle.Between(shooter.x,shooter.y,input.x,input.y)-Math.PI/2;
