@@ -27,7 +27,7 @@ var sc_play2 = new Phaser.Class({
         this.matter.set30Hz();
 
 
-        cosos.matter.add.sprite(500-i*20, 10+i*5,'i_alien', null, {
+        cosos = this.matter.add.sprite(500-i*20, 10+i*5,'i_alien', null, {
             mass: 1,
             inertia: Infinity,
             ignoreGravity: false,
