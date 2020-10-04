@@ -64,7 +64,7 @@ var sc_menu = new Phaser.Class({
             opcion3.clearTint();
         });
         opcion3.on('pointerdown', ()=>{
-            this.scene.start('sc_play2')
+            this.scene.start('sc_credits')
         });
     }
 });
