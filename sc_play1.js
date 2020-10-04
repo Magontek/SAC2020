@@ -95,7 +95,7 @@ var sc_play1 = new Phaser.Class({
         //SATELITE
         shooter = this.shooter;
         shooter = this.matter.add.sprite(200,100,'i_shooter', null, {
-            mass: 6,
+            mass: 0.01,
             ignorePointer: true,
             inertia: Infinity,
             frictionAir: 0,
@@ -208,16 +208,16 @@ var sc_play1 = new Phaser.Class({
         //APUNTADOR
         var shooter_angle = Phaser.Math.Angle.Between(shooter.x,shooter.y,input.x,input.y)-Math.PI/2;
         var shooter_angledelta = Phaser.Math.Angle.Wrap(shooter_angle - shooter.rotation);
-        if (shooter_angledelta > 0 && shooter_angledelta < Math.PI){
-            shooter.setAngularVelocity(0.04)
+        if (shooter_angledelta > 0.1 && shooter_angledelta < Math.PI){
+            shooter.setAngularVelocity(0.1*shooter_angledelta)
         }
         else{
-            if(shooter_angledelta == 0){
+            if(shooter_angledelta == 0 ){
                 shooter.setAngularVelocity(0)
             }
 
             else{
-                shooter.setAngularVelocity(-0.04)
+                shooter.setAngularVelocity(0.1*shooter_angledelta)
             }
         };
 
@@ -242,15 +242,15 @@ var sc_play1 = new Phaser.Class({
             energyname.x =(game.config.width / 2 - 30) * energytotal/100
         }
         if (pointer.rightButtonDown() && gastotal > 0){
-            shooter.thrustRight(0.00002);
+            shooter.thrustRight(0.0000003);
             gastotal -= 0.06;
             gasbar.scaleX = gastotal/100
             gasname.x =(game.config.width / 2 - 20) * gastotal/100
             //emitter
-            prop_on=true;
+            prop_on = true;
         }
         else{
-            prop_on=false;
+            prop_on = false;
         };
 
     }
