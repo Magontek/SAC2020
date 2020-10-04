@@ -28,6 +28,11 @@ var fuego;
 var prop_on=false;
 este_coso = null;
 ending=0;
+// 0=nada
+// 1=satelite reentro a la tierra
+// 2=satelite fue destruido
+// 3=estacion espacial se daño
+// 4=?
 score=0;
 end_for=0;
 

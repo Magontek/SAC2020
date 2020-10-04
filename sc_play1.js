@@ -122,7 +122,6 @@ var sc_play1 = new Phaser.Class({
             frictionAir: 0,
             friction: 0,
         });
-
         r_vec=vec_s.length();
         //console.log("r_vec = " + r_vec);
         dir_vec_s=vec_s.rotate(3.1416/2).normalize();
@@ -202,9 +201,11 @@ var sc_play1 = new Phaser.Class({
         });
 
         // BASURA
+
+        n_basura=10;
         var center= new Phaser.Math.Vector2(game.config.width / 2,game.config.height / 2);
         console.log(center);
-        for (var i = 0; i < 10; i++)
+        for (var i = 0; i < n_basura; i++)
         {
             // generacion aleatoria de angulos
             // 1º creo vector en la esquina
@@ -270,6 +271,7 @@ var sc_play1 = new Phaser.Class({
                     bodyB.position.x=-100;
                     bodyB.destroy();
                     score+=10;
+                    n_basura-=1;
                 } else{
                     this.scene.start('sc_game_over')
                 }
@@ -279,6 +281,7 @@ var sc_play1 = new Phaser.Class({
                     bodyA.position.x=-100;
                     bodyA.destroy();
                     score+=10;
+                    n_basura-=1;
                 } else{
                     this.scene.start('sc_game_over')
                 }
@@ -355,9 +358,7 @@ var sc_play1 = new Phaser.Class({
         else{
             if(shooter_angledelta == 0 ){
                 shooter.setAngularVelocity(0)
-
             }
-
             else{
                 shooter.setAngularVelocity(0.1*shooter_angledelta)
             }
@@ -374,13 +375,11 @@ var sc_play1 = new Phaser.Class({
                     },
                 loop: true
             });
-            energytotal -= 0.4;
+            energytotal -= 0.2;
             energybar.scaleX = energytotal/100;
             energyname.x =(game.config.width / 2 - 30) * energytotal/100;
-
             //var touchers = get.Phaser.Types.Physics.Matter.MatterBody.intersectPoint(input.x,input.y);
             //console.log(touchers);
-
             //Impulsa el coso cuando haces click
             if(este_coso!=null){
                 var vec_impulso=new Phaser.Math.Vector2(input.x-shooter.x,input.y-shooter.y)
