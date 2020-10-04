@@ -190,6 +190,7 @@ var sc_play1 = new Phaser.Class({
             cosos.setVelocity(dir_vec.x*mag_vec,dir_vec.y*mag_vec);
            
         }
+        // si el objeto es la tierra, borra el otro
         this.matter.world.on('collisionstart', function (event, bodyA, bodyB) {
             if (bodyA.label==='tierra'){
                 bodyB.visible=false;
