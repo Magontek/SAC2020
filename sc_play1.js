@@ -277,10 +277,10 @@ var sc_play1 = new Phaser.Class({
             gasbar.scaleX = gastotal/100
             gasname.x =(game.config.width / 2 - 20) * gastotal/100
             //emitter
-            fuego.om= true;
+            fuego.on= true;
         }
         else{
-            fuego= false;
+            fuego.on= false;
         };
 
     }
