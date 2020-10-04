@@ -35,7 +35,7 @@ var sc_play1 = new Phaser.Class({
         background.setScale(2);
 
         // TIERRA
-        var tierra = this.matter.add.sprite(game.config.width / 2,game.config.height / 2, 'i_sun', null, {
+        tierra = this.matter.add.sprite(game.config.width / 2,game.config.height / 2, 'i_sun', null, {
             label: 'tierra',
             mass: 200,
             isStatic: true,
@@ -49,7 +49,15 @@ var sc_play1 = new Phaser.Class({
                 ]
             }
         });
-        //tierra.setInteractive({ cursor: 'url(assets/input/mira_dark.cur), pointer' });
+        can_shoot = this.can_shoot;
+        can_shoot = true;
+        tierra.setInteractive({ cursor: 'url(assets/input/mira_dark.cur), pointer' });
+        tierra.on('pointerover', function(){
+            can_shoot = false;
+        });
+        tierra.on('pointerout', function(){
+            can_shoot = true;
+        });
 
 
         //MOUSE
@@ -70,10 +78,35 @@ var sc_play1 = new Phaser.Class({
         });
 
         //fuego sat
-        
+        /*
         var particles = this.add.particles('i_red');
         var fuego = particles.createEmitter({
             speed: { min: 400, max: 600 },
+            angle: {
+                onEmit: function (particle, key, t, value)
+                {
+                    return prop_on;
+                }
+            },
+            on: {
+                onEmit: function (particle, key, t, value)
+                {
+                    return prop_on;
+                }
+            },
+            lifespan: 100,
+            scale: { start: 0.5, end: 2 },
+            alpha: { start: 0.5, end: 0 },
+            blendMode: 'ADD',
+        }); */
+         var particles = this.add.particles('i_red');
+        var fuego = particles.createEmitter({
+            speed: { min: 400, max: 600 },
+            gravity: {
+                onEmit: function(){
+                    min: 400, max: 600
+                }
+            },
             angle: {
                 onEmit: function (particle, key, t, value)
                 {
@@ -202,8 +235,8 @@ var sc_play1 = new Phaser.Class({
                 bodyA.destroy();
             }
         });
-
     },
+
 
     update(){
 
@@ -224,9 +257,8 @@ var sc_play1 = new Phaser.Class({
         };
 
         //PROPULSION Y BARRAS DE ESTADO
-        var pointer = this.input.activePointer;//&& !tierra.on('pointerdown')
-        if (pointer.leftButtonDown() && energytotal > 0){
-            energytotal -= 0.15;
+        var pointer = this.input.activePointer;
+        if (pointer.leftButtonDown() && energytotal > 0 && can_shoot == true){
             var line = this.add.line(0,0,shooter.x,shooter.y,input.x,input.y,0xe74c3c).setOrigin(0, 0);
             this.time.addEvent({
                 delay: 40,
@@ -235,8 +267,11 @@ var sc_play1 = new Phaser.Class({
                     },
                 loop: true
             });
+            energytotal -= 0.3;
             energybar.scaleX = energytotal/100;
-            energyname.x =(game.config.width / 2 - 30) * energytotal/100
+            energyname.x =(game.config.width / 2 - 30) * energytotal/100;
+            //var touchers = Phaser.Types.Physics.Matter.MatterBody.intersectPoint(input.x,input.y);
+            //console.log(touchers);
         };
         if (energytotal < 100){
             energytotal += 0.06;
