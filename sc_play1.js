@@ -35,7 +35,7 @@ var sc_play1 = new Phaser.Class({
         background.setScale(2);
 
         // TIERRA
-        var tierra = this.matter.add.sprite(game.config.width / 2,game.config.height / 2, 'i_sun', null, {
+        tierra = this.matter.add.sprite(game.config.width / 2,game.config.height / 2, 'i_sun', null, {
             label: 'tierra',
             mass: 200,
             isStatic: true,
@@ -49,7 +49,15 @@ var sc_play1 = new Phaser.Class({
                 ]
             }
         });
-        //tierra.setInteractive({ cursor: 'url(assets/input/mira_dark.cur), pointer' });
+        can_shoot = this.can_shoot;
+        can_shoot = true;
+        tierra.setInteractive({ cursor: 'url(assets/input/mira_dark.cur), pointer' });
+        tierra.on('pointerover', function(){
+            can_shoot = false;
+        });
+        tierra.on('pointerout', function(){
+            can_shoot = true;
+        });
 
 
         //MOUSE
@@ -70,7 +78,6 @@ var sc_play1 = new Phaser.Class({
         });
 
         //fuego sat
-        
         var particles = this.add.particles('i_red');
                
 
@@ -104,8 +111,9 @@ var sc_play1 = new Phaser.Class({
             scale: { start: 0.5, end: 2 },
             alpha: { start: 0.5, end: 0 },
             blendMode: 'ADD',
-        });         
 
+        });        
+        
         fuego.startFollow(shooter);
 
         //BARRAS DE COMBUSTIBLE Y ENERGIA
@@ -208,12 +216,14 @@ var sc_play1 = new Phaser.Class({
                 bodyA.destroy();
             }
         });
-
     },
+
 
     update(){
 
         //APUNTADOR
+        console.log(shooter.body.speed);
+
         var shooter_angle = Phaser.Math.Angle.Between(shooter.x,shooter.y,input.x,input.y)-Math.PI/2;
         var shooter_angledelta = Phaser.Math.Angle.Wrap(shooter_angle - shooter.rotation);
         if (shooter_angledelta > 0.1 && shooter_angledelta < Math.PI){
@@ -222,6 +232,7 @@ var sc_play1 = new Phaser.Class({
         else{
             if(shooter_angledelta == 0 ){
                 shooter.setAngularVelocity(0)
+
             }
 
             else{
@@ -230,12 +241,17 @@ var sc_play1 = new Phaser.Class({
         };
 
         //PROPULSION Y BARRAS DE ESTADO
+<<<<<<< HEAD
         var pointer = this.input.activePointer;//&& !tierra.on('pointerdown')
         if (pointer.leftButtonDown() && energytotal > 0){
 
             console.log(pium.getBody());
 
             energytotal -= 0.15;
+=======
+        var pointer = this.input.activePointer;
+        if (pointer.leftButtonDown() && energytotal > 0 && can_shoot == true){
+>>>>>>> eeade32b3bf1318edb3ec867b30044209e33a481
             var line = this.add.line(0,0,shooter.x,shooter.y,input.x,input.y,0xe74c3c).setOrigin(0, 0);
             this.time.addEvent({
                 delay: 40,
@@ -244,8 +260,11 @@ var sc_play1 = new Phaser.Class({
                     },
                 loop: true
             });
+            energytotal -= 0.3;
             energybar.scaleX = energytotal/100;
-            energyname.x =(game.config.width / 2 - 30) * energytotal/100
+            energyname.x =(game.config.width / 2 - 30) * energytotal/100;
+            //var touchers = get.Phaser.Types.Physics.Matter.MatterBody.intersectPoint(input.x,input.y);
+            //console.log(touchers);
         };
         if (energytotal < 100){
             energytotal += 0.06;
@@ -253,6 +272,7 @@ var sc_play1 = new Phaser.Class({
             energyname.x =(game.config.width / 2 - 30) * energytotal/100
         }
         if (pointer.rightButtonDown() && gastotal > 0){
+
             shooter.thrustRight(0.0000003);
             gastotal -= 0.06;
             gasbar.scaleX = gastotal/100
