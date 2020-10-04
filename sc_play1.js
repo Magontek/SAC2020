@@ -109,10 +109,10 @@ var sc_play1 = new Phaser.Class({
         gasbar.fillStyle(0x48c9b0,1);
         gasbar.fillRect(0, 0, game.config.width, 20);
         gasbar.x = 0;
-        gasbar.y = game.config.height - 20;
+        gasbar.y = game.config.height - 41;
         gastotal = this.gastotal;
         gastotal = 100;
-        gasname = this.add.text(game.config.width / 2 - 20, game.config.height - 20, 'Fuel', {
+        gasname = this.add.text(game.config.width / 2 - 20, game.config.height - 40, 'Fuel', {
             fontSize: '19px',
             fill: '#34495e'
         });
@@ -121,10 +121,10 @@ var sc_play1 = new Phaser.Class({
         energybar.fillStyle(0xf4d03f,1);
         energybar.fillRect(0, 0, game.config.width, 20);
         energybar.x = 0;
-        energybar.y = game.config.height - 40;
+        energybar.y = game.config.height - 20;
         energytotal = this.gastotal;
         energytotal = 100;
-        energyname = this.add.text(game.config.width / 2 - 30, game.config.height - 41, 'Energy', {
+        energyname = this.add.text(game.config.width / 2 - 30, game.config.height - 21, 'Energy', {
             fontSize: '18px',
             fill: ' #d35400'
         });
@@ -223,10 +223,10 @@ var sc_play1 = new Phaser.Class({
         //PROPULSION Y BARRAS DE ESTADO
         var pointer = this.input.activePointer;
         if (pointer.leftButtonDown() && energytotal > 0){
-            energytotal -= 0.2;
+            energytotal -= 0.15;
             var line = this.add.line(0,0,shooter.x,shooter.y,input.x,input.y,0xe74c3c).setOrigin(0, 0);
             this.time.addEvent({
-                delay: 50,
+                delay: 40,
                 callback: ()=>{
                     line.destroy()
                     },
@@ -236,13 +236,13 @@ var sc_play1 = new Phaser.Class({
             energyname.x =(game.config.width / 2 - 30) * energytotal/100
         };
         if (energytotal < 100){
-            energytotal += 0.02;
+            energytotal += 0.04;
             energybar.scaleX = energytotal/100
             energyname.x =(game.config.width / 2 - 30) * energytotal/100
         }
         if (pointer.rightButtonDown() && gastotal > 0){
             shooter.thrustRight(0.0001);
-            gastotal -= 0.03;
+            gastotal -= 0.12;
             gasbar.scaleX = gastotal/100
             gasname.x =(game.config.width / 2 - 20) * gastotal/100
             //emitter
