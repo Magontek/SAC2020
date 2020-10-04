@@ -24,5 +24,6 @@ var right;
 var left;
 var vec_n;
 var fuego;
+var prop_on=false;
 
 var game = new Phaser.Game(config);

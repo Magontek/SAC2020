@@ -40,6 +40,32 @@ var sc_play1 = new Phaser.Class({
         pausa.on('pointerdown', ()=>{
             this.scene.start('sc_menu')
         });
+
+        //fuego sat
+        
+        var particles = this.add.particles('i_red');
+        var fuego = particles.createEmitter({
+            speed: { min: 400, max: 600 },
+            angle: {
+                onEmit: function (particle, key, t, value)
+                {
+                    return shooter.angle-90;
+                }
+            },
+            on: {
+                onEmit: function (particle, key, t, value)
+                {
+                    return prop_on;
+                }
+            },
+            lifespan: 100,
+            scale: { start: 0.5, end: 2 },
+            alpha: { start: 0.5, end: 0 },
+            blendMode: 'ADD',
+        }); 
+        fuego.angle.onEmit(shooter.angle);
+        fuego.startFollow(shooter);
+
         //SATELITE
         shooter = this.shooter;
         shooter = this.matter.add.sprite(200,100,'i_shooter', null, {
@@ -51,20 +77,7 @@ var sc_play1 = new Phaser.Class({
         });
         shooter.setInteractive({ cursor: 'url(assets/input/mira_dark.cur), pointer' });
 
-        //fuego sat
         
-        var particles = this.add.particles('i_red');
-        var fuego = particles.createEmitter({
-            speed: { min: 400, max: 600 },
-            angle: 0,
-            on: true,
-            lifespan: 100,
-            scale: { start: 0.5, end: 2 },
-            alpha: { start: 0.5, end: 0 },
-            blendMode: 'ADD',
-        }); 
-        fuego.angle.onEmit(shooter.angle);
-        fuego.startFollow(shooter);
 
         //BARRAS DE COMBUSTIBLE Y ENERGIA
         gasbar = this.add.graphics();
@@ -156,6 +169,11 @@ var sc_play1 = new Phaser.Class({
             gastotal -= 0.03;
             gasbar.scaleX = gastotal/100
             gasname.x =(game.config.width / 2 - 20) * gastotal/100
+            //emitter
+            prop_on=true;
+        }
+        else{
+            prop_on=false;
         };
 
     }
