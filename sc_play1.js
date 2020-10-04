@@ -147,7 +147,7 @@ var sc_play1 = new Phaser.Class({
             energytotal -= 0.2;
             var line = this.add.line(0,0,shooter.x,shooter.y,input.x,input.y,0xe74c3c).setOrigin(0, 0);
             this.time.addEvent({
-            delay: 500,
+            delay: 50,
             callback: ()=>{
                 line.destroy()
                 },
