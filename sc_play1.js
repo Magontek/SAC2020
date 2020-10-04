@@ -94,7 +94,7 @@ var sc_play1 = new Phaser.Class({
         //SATELITE
         shooter = this.shooter;
         shooter = this.matter.add.sprite(200,100,'i_shooter', null, {
-            mass: 10,
+            mass: 4,
             ignorePointer: true,
             inertia: Infinity,
             frictionAir: 0,
