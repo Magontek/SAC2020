@@ -253,10 +253,18 @@ var sc_play1 = new Phaser.Class({
                     });
                 }
                 cosos.scale=esc_rnd;
-                this.scene.start('sc_game_over');
+                shooter.body.position.x=-100;
+                shooter.body.destroy();
+                this.time.addEvent({
+                delay: 2000,
+                callback: ()=>{
+                    this.scene.start('sc_game_over');
+                    },
+                });
+                
             };
         });
-        scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+        scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#fff' });
     },
 
 
