@@ -19,7 +19,7 @@ var sc_credits = new Phaser.Class({
         background.setScale(0.979166667,0.843450479);
 
         //TEXTO PRINCIPAL
-        texto = this.add.text(1300,400, 'BLA BLA ZARASA ZARAZA\nMAS ZARAZA\nMUCHA FRUTA Y\nCUALQUIER COSA\nARRELOCO', {
+        texto = this.add.text(1100,200, 'This game was developped for\nthe this game was developed for \nthe Space Apps Challenge Orbital \nScrap Metal – The Video Game V2.0. \nDuring the 2020 pandemic.\nThe game is coded on javascript, \nusing Phaser 3. It was constructed \nsharing files over github and \ninformation over discord.\nThe biggest problem was simulating \ngravity and forces without making \nthe game too resources expensive.\n\nPutting links here is silly so if \nyou want to know more about space \ntrash google "nasa space trash" \nit`s a verry intresting toppic.\n', {
             fontSize: '30px',
             fill: '#f2fd83'
         });
