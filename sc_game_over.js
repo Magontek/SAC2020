@@ -15,11 +15,12 @@ var sc_game_over = new Phaser.Class({
             fill: '#c96520'
         });
 
-        //TEXTO CREDITOS
+        //FINALES
+        //if(ending == 1){
         texto2 = this.add.text(30,920, 'Game ended beacuse...', {
             fontSize: '30px',
             fill: '#fdb083'
-        });
+        });//};
 
         //BOTON RETRODECER
         back = this.add.text(game.config.width -300, game.config.height - 50, 'GO TO MENU', {
