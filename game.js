@@ -29,4 +29,30 @@ var prop_on=false;
 este_coso = null
 score=0;
 
+function basureadora (posA,posB){
+            for (var i = 0; i < 10; i++)
+            {
+            esc_rnd=Phaser.Math.RND.frac()*0.3+0.1;
+            cosos = this.matter.add.sprite(posA,posB,'trash', i, {
+                label: 'coso',
+                mass: 0.001,
+                inertia: Infinity,
+                ignoreGravity: false,
+                frictionAir: 0,
+                friction: 0,
+                shape: {
+                    type: 'circle',
+                    radius: 32*esc_rnd,
+                },
+                plugin: {
+                    attractors: [
+                        Phaser.Physics.Matter.Matter.Plugin.resolve("matter-attractors").Attractors.gravity
+                    ]
+                },
+            });
+            cosos.scale=esc_rnd;
+            cosos.setVelocity(Phaser.Math.RND.frac(),Phaser.Math.RND.frac());
+            }
+        };
+
 var game = new Phaser.Game(config);

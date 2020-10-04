@@ -15,8 +15,6 @@ var sc_play1 = new Phaser.Class({
         this.load.image('i_red', 'assets/red.png');
         this.load.image('i_shooter', 'assets/satelite_laser_2.png');
         this.load.image('i_opciones', 'assets/opciones.png');
-        this.load.image('i_alien', 'assets/space-baddie.png');
-
         this.load.image('i_target', 'assets/input/red.png');
         this.load.spritesheet('trash', 'assets/basura.png',
             { frameWidth: 64, frameHeight: 64 }
@@ -208,7 +206,6 @@ var sc_play1 = new Phaser.Class({
            
         }
 
-
         // si el objeto es la tierra, borra el otro
         this.matter.world.on('collisionstart', (event, bodyA, bodyB) => {
             if (bodyA.label==='tierra'){
@@ -231,10 +228,12 @@ var sc_play1 = new Phaser.Class({
                     this.scene.start('sc_game_over')
                 }
             } else if (bodyA.label==='nave'||bodyB.label==='nave'){
-                for (var i = 0; i < 10; i++)
+
+                //genera basura en impacto
+                for (var i = 0; i < 5; i++)
                 {
-                    esc_rnd=Phaser.Math.RND.frac()*0.5+0.1;
-                    this.matter.add.sprite(shooter.x,shooter.y,'trash', i, {
+                    esc_rnd=Phaser.Math.RND.frac()*0.3+0.1;
+                    cosos = this.matter.add.sprite(shooter.x,shooter.y,'trash', i, {
                         label: 'coso',
                         mass: 0.001,
                         inertia: Infinity,
@@ -243,7 +242,7 @@ var sc_play1 = new Phaser.Class({
                         friction: 0,
                         shape: {
                             type: 'circle',
-                            radius: 4*esc_rnd,
+                            radius: 32*esc_rnd,
                         },
                         plugin: {
                             attractors: [
@@ -251,18 +250,52 @@ var sc_play1 = new Phaser.Class({
                             ]
                         },
                     });
+                    cosos.scale=esc_rnd;
+                    cosos.setVelocity(Phaser.Math.RND.frac(),Phaser.Math.RND.frac());
+           
                 }
                 cosos.scale=esc_rnd;
                 shooter.body.position.x=-100;
                 shooter.body.destroy();
                 this.time.addEvent({
-                delay: 2000,
+                delay: 10000,
                 callback: ()=>{
                     this.scene.start('sc_game_over');
                     },
                 });
                 
-            };
+            } else{
+                // genera basura en impacto
+                for (var i = 0; i < 4; i++)
+                {
+                    esc_rnd=Phaser.Math.RND.frac()*0.3+0.1;
+                    var cosos = this.matter.add.sprite(bodyA.position.x,bodyA.position.y,'trash', i, {
+                        label: 'coso',
+                        mass: 0.001,
+                        inertia: Infinity,
+                        ignoreGravity: false,
+                        frictionAir: 0,
+                        friction: 0,
+                        shape: {
+                            type: 'circle',
+                            radius: 32*esc_rnd,
+                        },
+                        plugin: {
+                            attractors: [
+                                Phaser.Physics.Matter.Matter.Plugin.resolve("matter-attractors").Attractors.gravity
+                            ]
+                        },
+                    });
+                    cosos.scale=esc_rnd;
+                    cosos.setVelocity(Phaser.Math.RND.frac(),Phaser.Math.RND.frac());
+                }
+                bodyA.position.x=-100;
+                bodyA.destroy();
+                score-=10;
+                bodyB.position.x=-100;
+                bodyB.destroy();
+            }
+            ;
         });
         scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#fff' });
     },
@@ -310,8 +343,8 @@ var sc_play1 = new Phaser.Class({
 
             //Impulsa el coso cuando haces click
             if(este_coso!=null){
-                var pos_nave=new Phaser.Math.Vector2(shooter.x,shooter.y)
-                este_coso.applyForceFrom(pos_nave, pos_nave.normalize().scale(0.00000001));
+                var vec_impulso=new Phaser.Math.Vector2(input.x-shooter.x,input.y-shooter.y)
+                este_coso.applyForceFrom(vec_impulso, vec_impulso.normalize().scale(0.00000001));
             }
         };
         if (energytotal < 100){
