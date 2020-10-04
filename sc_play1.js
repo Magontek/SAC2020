@@ -13,6 +13,7 @@ var sc_play1 = new Phaser.Class({
         this.load.image('i_sun', 'assets/tierra.png');
         this.load.image('i_fondo', 'assets/espacio-exterior.png');
         this.load.image('i_red', 'assets/red.png');
+        this.load.image('i_exp', 'assets/explosion.png');
         this.load.image('i_shooter', 'assets/satelite_laser_2.png');
         this.load.image('i_iss', 'assets/iss.png');
         this.load.image('i_opciones', 'assets/opciones.png');
@@ -188,7 +189,7 @@ var sc_play1 = new Phaser.Class({
 
 
         // emisor de particulas de choque
-        explosion = this.add.particles('spark').createEmitter({
+        explosion = this.add.particles('i_exp').createEmitter({
             x: 400,
             y: 300,
             speed: { min: -800, max: 800 },
@@ -262,6 +263,7 @@ var sc_play1 = new Phaser.Class({
 
         // si el objeto es la tierra, borra el otro
         this.matter.world.on('collisionstart', (event, bodyA, bodyB) => {
+            //Si algo colisiona contra la tierra
             if (bodyA.label==='tierra'){
                 if(bodyB.label==='coso'){
                     test=bodyB;
@@ -271,7 +273,6 @@ var sc_play1 = new Phaser.Class({
                 } else{
                     this.scene.start('sc_game_over')
                 }
-                
             } else if (bodyB.label==='tierra'){
                 if(bodyB.label==='coso'){
                     test=bodyB;
@@ -281,13 +282,13 @@ var sc_play1 = new Phaser.Class({
                 } else{
                     this.scene.start('sc_game_over')
                 }
-            } else if (bodyA.label==='nave'||bodyB.label==='nave'){
-
+            //Si algo colisiona contra la nave
+            } else if (bodyA.label==='nave'||bodyB.label==='nave'||bodyA.label==='estacion'||bodyB.label==='estacion'){
                 //genera basura en impacto
-                for (var i = 0; i < 5; i++)
+                for (var i = 0; i < 3; i++)
                 {
                     esc_rnd=Phaser.Math.RND.frac()*0.3+0.1;
-                    cosos = this.matter.add.sprite(shooter.x,shooter.y,'trash', i, {
+                    cosos = this.matter.add.sprite(shooter.x-i*20,shooter.y+i*20,'trash', i, {
                         label: 'coso',
                         mass: 0.001,
                         inertia: Infinity,
@@ -305,12 +306,12 @@ var sc_play1 = new Phaser.Class({
                         },
                     });
                     cosos.scale=esc_rnd;
-                    cosos.setVelocity(Phaser.Math.RND.frac(),Phaser.Math.RND.frac());
-           
+                    cosos.setVelocity(shooter.body.velocity.x+Phaser.Math.RND.frac(),shooter.body.velocity.y+Phaser.Math.RND.frac());
                 }
-                cosos.scale=esc_rnd;
-                shooter.body.position.x=-100;
-                shooter.body.destroy();
+                bodyA.position.x=-100;
+                bodyA.destroy();
+                bodyB.position.x=-100;
+                bodyB.destroy();
                 this.time.addEvent({
                 delay: 10000,
                 callback: ()=>{
@@ -320,7 +321,7 @@ var sc_play1 = new Phaser.Class({
                 
             } else{
                 // genera basura en impacto
-                explosion.startFollow(bodyA);
+                explosion.setPosition(bodyA.position.x,bodyA.position.y);
                 explosion.on=true;
                 this.time.addEvent({
                     delay: 100,
@@ -387,7 +388,7 @@ var sc_play1 = new Phaser.Class({
             }
         };
         if (energytotal < 100){
-            energytotal += 0.01;
+            energytotal += 0.02;
             energybar.scaleX = energytotal/100
             energyname.x =(game.config.width / 2 - 30) * energytotal/100
         }

@@ -174,10 +174,10 @@ var sc_play2 = new Phaser.Class({
 
             coso.scale=esc_rnd;
             coso.setInteractive();
-            coso.on('pointerdown', ()=>{
-            if(energytotal > 0){
-                coso.applyForceFrom(shooter.x,shooter.y, 0.000000001)
-            }
+            coso.on('pointerdown', function (){
+                if(energytotal > 0){
+                    this.applyForceFrom(shooter.x,shooter.y, 0.000000001)
+                }
         });
             // asignacion de velocidad
             // constante de gravitacion G*M mas o menos 54
@@ -204,6 +204,8 @@ var sc_play2 = new Phaser.Class({
             }
         });
 
+        Text = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+
     },
 
     update(){
@@ -227,7 +229,7 @@ var sc_play2 = new Phaser.Class({
         //PROPULSION Y BARRAS DE ESTADO
         var pointer = this.input.activePointer;
         if (pointer.leftButtonDown() && energytotal > 0){
-            energytotal -= 0.15;
+            energytotal -= 0.10;
             var line = this.add.line(0,0,shooter.x,shooter.y,input.x,input.y,0xe74c3c).setOrigin(0, 0);
             this.time.addEvent({
                 delay: 40,
