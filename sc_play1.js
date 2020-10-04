@@ -11,7 +11,7 @@ var sc_play1 = new Phaser.Class({
     preload (){
         this.load.image('i_fondo', 'assets/fondo_menu.jpg');
         this.load.image('i_red', 'assets/red.png');
-        this.load.image('i_shooter', 'assets/satelite_laser.png');
+        this.load.image('i_shooter', 'assets/satelite_laser_2.png');
         this.load.image('i_opciones', 'assets/opciones.png');
         this.load.image('i_alien', 'assets/space-baddie.png');
 
@@ -74,37 +74,19 @@ var sc_play1 = new Phaser.Class({
         var right = this.right;
 
 
-        this.input.on('pointerdown', function (pointer) {
-            if (pointer.rightButtonDown()){
-                right = 1
-            };
-            if (pointer.leftButtonDown()){
-                left = 1
-            }
-        });
-        this.input.on('pointerup', function (pointer) {
-            if (!pointer.rightButtonDown()){
-                right = 0
-            };
-            if (!pointer.leftButtonDown()){
-                left = 0
-            }
-        });
-
-
     },
 
     update(){
         //Apuntador
-        var angle=Phaser.Math.Angle.Between(shooter.x,shooter.y,input.x,input.y)-Math.PI/1.35;
+        var angle=Phaser.Math.Angle.Between(shooter.x,shooter.y,input.x,input.y)-Math.PI/2;
         shooter.setRotation(angle);
 
-
-        if (right == 1){
+        var pointer = this.input.activePointer;
+        if (pointer.leftButtonDown()){
             console.log(input)
         };
-        if (left == 1){
-            shooter.thrust(0.01)
+        if (pointer.rightButtonDown()){
+            shooter.thrustRight(0.0001)
         }
         
     }
