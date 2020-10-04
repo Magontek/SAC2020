@@ -26,7 +26,8 @@ var left;
 var vec_n;
 var fuego;
 var prop_on=false;
-este_coso = null
+este_coso = null;
+ending=0;
 score=0;
 
 function basureadora (posA,posB){
