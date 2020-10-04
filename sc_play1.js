@@ -151,7 +151,7 @@ var sc_play1 = new Phaser.Class({
         // BASURA
         var center= new Phaser.Math.Vector2(game.config.width / 2,game.config.height / 2);
         console.log(center);
-        for (var i = 0; i < 1; i++)
+        for (var i = 0; i < 10; i++)
         {
             // generacion aleatoria de angulos
             // 1º creo vector en la esquina
@@ -212,20 +212,50 @@ var sc_play1 = new Phaser.Class({
         // si el objeto es la tierra, borra el otro
         this.matter.world.on('collisionstart', (event, bodyA, bodyB) => {
             if (bodyA.label==='tierra'){
-                console.log(bodyB)
-                test=bodyB;
-                bodyB.position.x=-100;
-                bodyB.destroy();
+                if(bodyB.label==='coso'){
+                    test=bodyB;
+                    bodyB.position.x=-100;
+                    bodyB.destroy();
+                    score+=10;
+                } else{
+                    this.scene.start('sc_game_over')
+                }
+                
             } else if (bodyB.label==='tierra'){
-                console.log(bodyB)
-                test=bodyB;
-                bodyA.position.x=-100;
-                bodyA.destroy();
+                if(bodyB.label==='coso'){
+                    test=bodyB;
+                    bodyA.position.x=-100;
+                    bodyA.destroy();
+                    score+=10;
+                } else{
+                    this.scene.start('sc_game_over')
+                }
             } else if (bodyA.label==='nave'||bodyB.label==='nave'){
-
+                for (var i = 0; i < 10; i++)
+                {
+                    esc_rnd=Phaser.Math.RND.frac()*0.5+0.1;
+                    this.matter.add.sprite(shooter.x,shooter.y,'trash', i, {
+                        label: 'coso',
+                        mass: 0.001,
+                        inertia: Infinity,
+                        ignoreGravity: false,
+                        frictionAir: 0,
+                        friction: 0,
+                        shape: {
+                            type: 'circle',
+                            radius: 4*esc_rnd,
+                        },
+                        plugin: {
+                            attractors: [
+                                Phaser.Physics.Matter.Matter.Plugin.resolve("matter-attractors").Attractors.gravity
+                            ]
+                        },
+                    });
+                }
+                cosos.scale=esc_rnd;
+                this.scene.start('sc_game_over');
             };
         });
-
         scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
     },
 
