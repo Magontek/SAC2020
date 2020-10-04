@@ -20,7 +20,5 @@ var config = {
 
 var shooter;
 var cosos;
-var right;
-var left;
 
 var game = new Phaser.Game(config);
