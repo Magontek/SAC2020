@@ -10,7 +10,7 @@ var sc_play1 = new Phaser.Class({
         },
 
     preload (){
-        this.load.image('i_fondo', 'assets/fondo_menu.jpg');
+        this.load.image('i_fondo', 'assets/espacio-exterior.png');
         this.load.image('i_red', 'assets/red.png');
         this.load.image('i_shooter', 'assets/satelite_laser_2.png');
         this.load.image('i_opciones', 'assets/opciones.png');
@@ -59,21 +59,21 @@ var sc_play1 = new Phaser.Class({
                 return shooter.body.speed;
             }
         },
-        lifespan: {
+        lifespan: 5,
+        /*{
             onEmit: function (particle, key, t, value)
             {
                 return Phaser.Math.Percent(shooter.body.speed, 0, 300) * 20000;
             }
-        },
-        alpha: {
+        },*/
+        alpha: 5, /*{
             onEmit: function (particle, key, t, value)
             {
                 return Phaser.Math.Percent(shooter.body.speed, 0, 300) * 1000;
             }
-        },
+        },*/
         scale: { start: 5, end: 0 },
         blendMode: 'ADD',
-        rotate: Phaser.Math.Angle.Between(shooter.x,shooter.y,input.x,input.y)+Math.PI/5
     });
         emitter.startFollow(shooter);
         //OTROS
