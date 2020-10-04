@@ -37,21 +37,24 @@ var sc_play2 = new Phaser.Class({
             }
         });
 
-        //constante de gravitacion G*M mas o menos 54
+        
         var center= new Phaser.Math.Vector2(game.config.width / 2,game.config.height / 2);
         console.log(center);
-        for (var i = 0; i < 1; i++)
+        for (var i = 0; i < 4; i++)
         {
+            // generacion aleatoria de angulos
             // 1º creo vector en la esquina
-            // 2º lo apunto a 
+            // 2º lo apunto a un x entre 90 y 250
+            // 3º le doy un angulo aleatorio
             var vec_n = new Phaser.Math.Vector2();
             vec_n.x=Phaser.Math.RND.between(90, 250);
             console.log(vec_n);
             vec_n.rotate(Phaser.Math.RND.rotation());
             console.log(vec_n);
 
+
             cosos = this.matter.add.sprite(vec_n.x+center.x,vec_n.y+center.y,'i_alien', null, {
-                mass: 1,
+                mass: 0.01,
                 inertia: Infinity,
                 ignoreGravity: false,
                 frictionAir: 0,
@@ -62,10 +65,18 @@ var sc_play2 = new Phaser.Class({
                     ]
                 }
             });
-            cosos.setVelocity(0.6, 0);
+            // asignacion de velocidad
+            // constante de gravitacion G*M mas o menos 54
+            // la velocidad es perpendicular, por lo que giro pi/2 y calculo seno y coseno
+            // velocidad angular=raiz(GM/r) 
+
+            r_vec=vec_n.length()
+            console.log("r_vec = " + r_vec);
+            dir_vec=vec_n.rotate(3.1416/2).normalize();
+            console.log(dir_vec);
+            mag_vec=Math.sqrt(54/r_vec)
+            cosos.setVelocity(dir_vec.x*mag_vec,dir_vec.y*mag_vec);
         }
-        
-        
     },
     update(){
         
