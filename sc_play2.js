@@ -37,15 +37,20 @@ var sc_play2 = new Phaser.Class({
             }
         });
 
+        //constante de gravitacion G*M mas o menos 54
         var center= new Phaser.Math.Vector2(game.config.width / 2,game.config.height / 2);
-
+        console.log(center);
         for (var i = 0; i < 1; i++)
         {
+            // 1º creo vector en la esquina
+            // 2º lo apunto a 
             var vec_n = new Phaser.Math.Vector2();
-            vec_n.setFromObject(tierra);
+            vec_n.x=Phaser.Math.RND.between(90, 250);
             console.log(vec_n);
-            vec_n.y=150;
-            cosos = this.matter.add.sprite(vec_n.x,vec_n.y,'i_alien', null, {
+            vec_n.rotate(Phaser.Math.RND.rotation());
+            console.log(vec_n);
+
+            cosos = this.matter.add.sprite(vec_n.x+center.x,vec_n.y+center.y,'i_alien', null, {
                 mass: 1,
                 inertia: Infinity,
                 ignoreGravity: false,
