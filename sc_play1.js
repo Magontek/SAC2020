@@ -53,12 +53,7 @@ var sc_play1 = new Phaser.Class({
         //EMITTER sat
         var particles = this.add.particles('i_red');
         var emitter = particles.createEmitter({
-        speed: {
-            onEmit: function (particle, key, t, value)
-            {
-                return shooter.body.speed;
-            }
-        },
+        speed: 5,
         lifespan: 5,
         /*{
             onEmit: function (particle, key, t, value)
@@ -75,10 +70,22 @@ var sc_play1 = new Phaser.Class({
         scale: { start: 5, end: 0 },
         blendMode: 'ADD',
     });
+        //BARRA DE COMBUSTIBLE
+        gasbar = this.add.graphics();
+        gasbar.fillStyle(0x2ecc71,1);
+        gasbar.fillRect(0, 0, game.config.width+50, 20);
+        gasbar.x = -50;
+        gasbar.y = game.config.height - 20;
+        gastotal = this.gastotal;
+        gastotal = 100;
+        
+
+
+
         emitter.startFollow(shooter);
         //OTROS
         center = new Phaser.Geom.Point(game.config.width / 2, game.config.height / 2);
-        input=this.input;
+        input = this.input;
 
 
 
@@ -102,7 +109,7 @@ var sc_play1 = new Phaser.Class({
         var shooter_angle = Phaser.Math.Angle.Between(shooter.x,shooter.y,input.x,input.y)-Math.PI/2;
         var shooter_angledelta = Phaser.Math.Angle.Wrap(shooter_angle - shooter.rotation);
         if (shooter_angledelta > 0 && shooter_angledelta < Math.PI){
-            shooter.setAngularVelocity(0.04)
+            shooter.setAngularVelocity(0.02)
         }
         else{
             if(shooter_angledelta == 0){
@@ -110,7 +117,7 @@ var sc_play1 = new Phaser.Class({
             }
 
             else{
-                shooter.setAngularVelocity(-0.04)
+                shooter.setAngularVelocity(-0.02)
             }
         };
 
@@ -119,8 +126,10 @@ var sc_play1 = new Phaser.Class({
         if (pointer.leftButtonDown()){
             console.log(input)
         };
-        if (pointer.rightButtonDown()){
-            shooter.thrustRight(0.0001)
+        if (pointer.rightButtonDown() && gastotal > 0){
+            shooter.thrustRight(0.0001);
+            gasbar.scaleX = gastotal/100;
+            gastotal -= 0.05
         }
         
     }
