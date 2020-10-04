@@ -52,25 +52,27 @@ var sc_play1 = new Phaser.Class({
         shooter.setInteractive({ cursor: 'url(assets/input/mira_dark.cur), pointer' });
 
         //EMITTER sat
-        /*
+        
         var particles = this.add.particles('i_red');
         var emitter = particles.createEmitter({
-        speed: 5,
-        lifespan: {
-            onEmit: function (particle, key, t, value)
-            {
-                return Phaser.Math.Percent(shooter.body.speed, 0, 300) * 20000;
-            }
-        },
-        alpha:{
-            onEmit: function (particle, key, t, value)
-            {
-                return Phaser.Math.Percent(shooter.body.speed, 0, 300) * 1000;
-            }
-        },
-        scale: { start: 5, end: 0 },
-        blendMode: 'ADD',
-    }); */
+            speed: 5,
+            on: false,
+            lifespan: {
+                onEmit: function (particle, key, t, value)
+                {
+                    return Phaser.Math.Percent(shooter.body.speed, 0, 300) * 20000;
+                }
+            },
+            alpha:{
+                onEmit: function (particle, key, t, value)
+                {
+                    return Phaser.Math.Percent(shooter.body.speed, 0, 300) * 1000;
+                }
+            },
+            scale: { start: 5, end: 0 },
+            blendMode: 'ADD',
+        }); 
+        emitter.startFollow(shooter);
 
         //BARRAS DE COMBUSTIBLE Y ENERGIA
         gasbar = this.add.graphics();
@@ -96,10 +98,6 @@ var sc_play1 = new Phaser.Class({
             fontSize: '18px',
             fill: ' #d35400'
         });
-
-
-
-        //emitter.startFollow(shooter);
 
 
         //OTROS
