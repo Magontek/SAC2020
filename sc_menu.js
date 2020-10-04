@@ -20,10 +20,11 @@ var sc_menu = new Phaser.Class({
         background.setOrigin(0, 0);
         background.setScale(0.979166667,0.843450479);
 
-        texto = this.add.text(game.config.width / 2, 150, 'Scrap Pusher RL', {
+        texto = this.add.text(game.config.width / 2 - 450, 120, 'Orbital Scrap De-Orbiter', {//ORBITAL SCRAP DE-ORBITER
             fontSize: '60px',
-            fill: '#ffffff'
-        }).setOrigin(0.5);
+            fill: '#d19f47',
+            fontStyle: 'bold'
+        });
 
         //OPCION JUGAR
         var opcion1 = this.add.sprite(game.config.width / 2, game.config.height / 2 - 150, 'play').setInteractive();
