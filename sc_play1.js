@@ -399,7 +399,7 @@ var sc_play1 = new Phaser.Class({
         }
         if (pointer.rightButtonDown() && gastotal > 0){
 
-            shooter.thrustRight(0.00000003);
+            shooter.thrustRight(0.0000001);
             gastotal -= 0.15;
             gasbar.scaleX = gastotal/100
             gasname.x =(game.config.width / 2 - 20) * gastotal/100
