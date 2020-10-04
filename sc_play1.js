@@ -95,7 +95,7 @@ var sc_play1 = new Phaser.Class({
         //SATELITE
         shooter = this.shooter;
         shooter = this.matter.add.sprite(200,100,'i_shooter', null, {
-            mass: 4,
+            mass: 6,
             ignorePointer: true,
             inertia: Infinity,
             frictionAir: 0,
@@ -237,13 +237,13 @@ var sc_play1 = new Phaser.Class({
             energyname.x =(game.config.width / 2 - 30) * energytotal/100
         };
         if (energytotal < 100){
-            energytotal += 0.04;
+            energytotal += 0.06;
             energybar.scaleX = energytotal/100
             energyname.x =(game.config.width / 2 - 30) * energytotal/100
         }
         if (pointer.rightButtonDown() && gastotal > 0){
             shooter.thrustRight(0.00002);
-            gastotal -= 0.12;
+            gastotal -= 0.06;
             gasbar.scaleX = gastotal/100
             gasname.x =(game.config.width / 2 - 20) * gastotal/100
             //emitter
