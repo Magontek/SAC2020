@@ -208,7 +208,7 @@ var sc_play1 = new Phaser.Class({
         var shooter_angle = Phaser.Math.Angle.Between(shooter.x,shooter.y,input.x,input.y)-Math.PI/2;
         var shooter_angledelta = Phaser.Math.Angle.Wrap(shooter_angle - shooter.rotation);
         if (shooter_angledelta > 0 && shooter_angledelta < Math.PI){
-            shooter.setAngularVelocity(0.02)
+            shooter.setAngularVelocity(0.04)
         }
         else{
             if(shooter_angledelta == 0){
@@ -216,7 +216,7 @@ var sc_play1 = new Phaser.Class({
             }
 
             else{
-                shooter.setAngularVelocity(-0.02)
+                shooter.setAngularVelocity(-0.04)
             }
         };
 
@@ -241,7 +241,7 @@ var sc_play1 = new Phaser.Class({
             energyname.x =(game.config.width / 2 - 30) * energytotal/100
         }
         if (pointer.rightButtonDown() && gastotal > 0){
-            shooter.thrustRight(0.0001);
+            shooter.thrustRight(0.00003);
             gastotal -= 0.12;
             gasbar.scaleX = gastotal/100
             gasname.x =(game.config.width / 2 - 20) * gastotal/100
