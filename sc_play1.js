@@ -99,8 +99,21 @@ var sc_play1 = new Phaser.Class({
 
     update(){
         //Apuntador
-        var angle=Phaser.Math.Angle.Between(shooter.x,shooter.y,input.x,input.y)-Math.PI/2;
-        shooter.setRotation(angle);
+        var shooter_angle = Phaser.Math.Angle.Between(shooter.x,shooter.y,input.x,input.y)-Math.PI/2;
+        var shooter_angledelta = Phaser.Math.Angle.Wrap(shooter_angle - shooter.rotation);
+        if (shooter_angledelta > 0 && shooter_angledelta < Math.PI){
+            shooter.setAngularVelocity(0.04)
+        }
+        else{
+            if(shooter_angledelta == 0){
+                shooter.setAngularVelocity(0)
+            }
+
+            else{
+                shooter.setAngularVelocity(-0.04)
+            }
+        };
+
 
         var pointer = this.input.activePointer;
         if (pointer.leftButtonDown()){
