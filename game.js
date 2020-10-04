@@ -20,6 +20,7 @@ var config = {
 
 var shooter;
 var cosos;
+var coso;
 var right;
 var left;
 var vec_n;
