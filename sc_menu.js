@@ -58,7 +58,7 @@ var sc_menu = new Phaser.Class({
         //OPCION EXPLICACION Y CREDITOS
         var opcion3 = this.add.sprite(0, 500, 'information').setOrigin(0,0).setInteractive();
         opcion3.on('pointerover', function() {
-            opcion3.setTint(0x828282);
+            opcion3.setTint(0x9b0cff);
         });
         opcion3.on('pointerout', function() {
             opcion3.clearTint();
