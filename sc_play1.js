@@ -374,7 +374,7 @@ var sc_play1 = new Phaser.Class({
                     },
                 loop: true
             });
-            energytotal -= 1;
+            energytotal -= 0.4;
             energybar.scaleX = energytotal/100;
             energyname.x =(game.config.width / 2 - 30) * energytotal/100;
 
@@ -394,8 +394,8 @@ var sc_play1 = new Phaser.Class({
         }
         if (pointer.rightButtonDown() && gastotal > 0){
 
-            shooter.thrustRight(0.0000003);
-            gastotal -= 0.06;
+            shooter.thrustRight(0.00000003);
+            gastotal -= 0.15;
             gasbar.scaleX = gastotal/100
             gasname.x =(game.config.width / 2 - 20) * gastotal/100
             //emitter

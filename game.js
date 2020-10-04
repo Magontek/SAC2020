@@ -28,6 +28,7 @@ var fuego;
 var prop_on=false;
 este_coso = null
 score=0;
+end_for=0;
 
 function basureadora (posA,posB){
             for (var i = 0; i < 10; i++)
