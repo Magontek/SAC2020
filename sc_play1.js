@@ -10,7 +10,7 @@ var sc_play1 = new Phaser.Class({
         },
 
     preload (){
-        this.load.image('i_fondo', 'assets/fondo_menu.jpg');
+        this.load.image('i_fondo', 'assets/espacio-exterior.png');
         this.load.image('i_red', 'assets/red.png');
         this.load.image('i_shooter', 'assets/satelite_laser_2.png');
         this.load.image('i_opciones', 'assets/opciones.png');
@@ -24,11 +24,9 @@ var sc_play1 = new Phaser.Class({
 
         //MOUSE
         this.input.setDefaultCursor('url(assets/input/mira.cur), pointer');
-
+        //BACKGROUND
         var background = this.add.sprite(0, 0, 'i_fondo');
         background.setOrigin(0, 0);
-
-
         //BOTON DE PAUSA ENGRANAJE
         var pausa = this.add.sprite(game.config.width - 45, 5, 'i_opciones').setInteractive();
         pausa.setOrigin(0, 0);
@@ -42,30 +40,6 @@ var sc_play1 = new Phaser.Class({
         pausa.on('pointerdown', ()=>{
             this.scene.start('sc_menu')
         });
-        //FIN BOTON PAUSA
-
-
-        var cosos = this.matter.add.imageStack('i_alien', null, 0, 1, 1, 2, 0, 400, {
-            mass: 1,
-            ignorePointer: true,
-            inertia: Infinity,
-            frictionAir: 0,
-            friction: 0
-        });
-
-/*
-        var particles = this.add.particles('i_red');
-
-        var emitter = particles.createEmitter({
-            speed: 100,
-            scale: { start: 1, end: 0 },
-            blendMode: 'ADD'
-        });       */
-
-
-
-
-
         //SATELITE
         shooter = this.shooter;
         shooter = this.matter.add.sprite(200,100,'i_shooter', null, {
@@ -76,12 +50,7 @@ var sc_play1 = new Phaser.Class({
             friction: 0
         });
         shooter.setInteractive({ cursor: 'url(assets/input/mira_dark.cur), pointer' });
-        //OTROS
-        center = new Phaser.Geom.Point(game.config.width / 2, game.config.height / 2);
-        input=this.input;
-        var left = this.left;
-        var right = this.right;
-
+        //EMITTER sat
         var particles = this.add.particles('i_red');
         var emitter = particles.createEmitter({
         speed: {
@@ -90,23 +59,40 @@ var sc_play1 = new Phaser.Class({
                 return shooter.body.speed;
             }
         },
-        lifespan: {
+        lifespan: 5,
+        /*{
             onEmit: function (particle, key, t, value)
             {
                 return Phaser.Math.Percent(shooter.body.speed, 0, 300) * 20000;
             }
-        },
-        alpha: {
+        },*/
+        alpha: 5, /*{
             onEmit: function (particle, key, t, value)
             {
                 return Phaser.Math.Percent(shooter.body.speed, 0, 300) * 1000;
             }
-        },
+        },*/
         scale: { start: 5, end: 0 },
         blendMode: 'ADD',
-        rotate: Phaser.Math.Angle.Between(shooter.x,shooter.y,input.x,input.y)+Math.PI/5
     });
         emitter.startFollow(shooter);
+        //OTROS
+        center = new Phaser.Geom.Point(game.config.width / 2, game.config.height / 2);
+        input=this.input;
+
+
+
+
+
+
+        var cosos = this.matter.add.imageStack('i_alien', null, 0, 1, 1, 2, 0, 400, {
+            mass: 1,
+            ignorePointer: true,
+            inertia: Infinity,
+            frictionAir: 0,
+            friction: 0
+        });
+
 
 
     },
