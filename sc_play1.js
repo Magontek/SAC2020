@@ -10,6 +10,7 @@ var sc_play1 = new Phaser.Class({
         },
 
     preload (){
+        this.load.image('i_sun', 'assets/tierra.png');
         this.load.image('i_fondo', 'assets/espacio-exterior.png');
         this.load.image('i_red', 'assets/red.png');
         this.load.image('i_shooter', 'assets/satelite_laser_2.png');
@@ -21,6 +22,26 @@ var sc_play1 = new Phaser.Class({
 
     
     create (){
+
+        //delta consistente
+        this.matter.set30Hz();
+
+        //define la tierra en el centro
+        var tierra = this.matter.add.sprite(game.config.width / 2,game.config.height / 2, 'i_sun', null, {
+            label: 'tierra',
+            mass: 200,
+            isStatic: true,
+            shape: {
+                type: 'circle',
+                radius: 64
+            },
+            plugin: {
+                attractors: [
+                    Phaser.Physics.Matter.Matter.Plugin.resolve("matter-attractors").Attractors.gravity
+                ]
+            }
+        });
+
 
         //MOUSE
         this.input.setDefaultCursor('url(assets/input/mira.cur), pointer');
