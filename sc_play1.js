@@ -12,7 +12,7 @@ var sc_play1 = new Phaser.Class({
     preload (){
         this.load.image('i_fondo', 'assets/fondo_menu.jpg');
         this.load.image('i_red', 'assets/red.png');
-        this.load.image('i_shooter', 'assets/satelite_laser.png');
+        this.load.image('i_shooter', 'assets/satelite_laser_2.png');
         this.load.image('i_opciones', 'assets/opciones.png');
         this.load.image('i_alien', 'assets/space-baddie.png');
 
@@ -53,59 +53,69 @@ var sc_play1 = new Phaser.Class({
             friction: 0
         });
 
-
+/*
         var particles = this.add.particles('i_red');
 
         var emitter = particles.createEmitter({
             speed: 100,
             scale: { start: 1, end: 0 },
             blendMode: 'ADD'
-        });
-        
+        });       */
+
+
+
+
 
         //SATELITE
         shooter = this.shooter;
         shooter = this.matter.add.sprite(200,100,'i_shooter');
         shooter.setInteractive({ cursor: 'url(assets/input/mira_dark.cur), pointer' });
-        emitter.startFollow(shooter);
         //OTROS
         center = new Phaser.Geom.Point(game.config.width / 2,game.config.height / 2);
         input=this.input;
         var left = this.left;
         var right = this.right;
 
-
-        this.input.on('pointerdown', function (pointer) {
-            if (pointer.rightButtonDown()){
-                right = 1
-            };
-            if (pointer.leftButtonDown()){
-                left = 1
+        var particles = this.add.particles('i_red');
+        var emitter = particles.createEmitter({
+        speed: {
+            onEmit: function (particle, key, t, value)
+            {
+                return shooter.body.speed;
             }
-        });
-        this.input.on('pointerup', function (pointer) {
-            if (!pointer.rightButtonDown()){
-                right = 0
-            };
-            if (!pointer.leftButtonDown()){
-                left = 0
+        },
+        lifespan: {
+            onEmit: function (particle, key, t, value)
+            {
+                return Phaser.Math.Percent(shooter.body.speed, 0, 300) * 20000;
             }
-        });
+        },
+        alpha: {
+            onEmit: function (particle, key, t, value)
+            {
+                return Phaser.Math.Percent(shooter.body.speed, 0, 300) * 1000;
+            }
+        },
+        scale: { start: 5, end: 0 },
+        blendMode: 'ADD',
+        angle: {onEmit: function(shooter,input) Phaser.Math.Angle.Between(shooter.x,shooter.y,input.x,input.y)}
+    });
+        emitter.startFollow(shooter);
 
 
     },
 
     update(){
         //Apuntador
-        var angle=Phaser.Math.Angle.Between(shooter.x,shooter.y,input.x,input.y)-Math.PI/1.35;
+        var angle=Phaser.Math.Angle.Between(shooter.x,shooter.y,input.x,input.y)-Math.PI/2;
         shooter.setRotation(angle);
 
-
-        if (right == 1){
+        var pointer = this.input.activePointer;
+        if (pointer.leftButtonDown()){
             console.log(input)
         };
-        if (left == 1){
-            shooter.thrust(0.01)
+        if (pointer.rightButtonDown()){
+            shooter.thrustRight(0.0001)
         }
         
     }
