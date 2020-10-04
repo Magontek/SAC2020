@@ -8,6 +8,8 @@ var sc_menu = new Phaser.Class({
         this.load.image('boton', 'assets/button.png')
         this.load.image('play', 'assets/boton_play.png')
         this.load.image('sound', 'assets/boton_sonido.png')
+        this.load.image('soundbars', 'assets/barras_sonido.png')
+        this.load.image('information', 'assets/solar_panel.png')
     },
     create(){
         this.input.mouse.disableContextMenu();
@@ -36,31 +38,25 @@ var sc_menu = new Phaser.Class({
         opcion2.on('pointerout', function() {
             opcion2.clearTint();
         });
+        var soundbars = this.add.sprite(game.config.width - 400, game.config.height - 160, 'soundbars');
         opcion2.on('pointerdown', ()=>{
-            this.scene.start('sc_play2')
+        if (soundbars.visible == false){
+            soundbars.visible = true
+        }
+        else{
+            soundbars.visible = false
+        }
         });
 
-        //OPCION EXPLICACION
-        var opcion3 = this.add.sprite(game.config.width / 2, game.config.height / 2 + 120, 'boton').setInteractive();
+        //OPCION EXPLICACION Y CREDITOS
+        var opcion3 = this.add.sprite(300, 600, 'information').setInteractive();
         opcion3.on('pointerover', function() {
-            opcion3.setTint(0x7878ff);
+            opcion3.setTint(0x828282);
         });
         opcion3.on('pointerout', function() {
             opcion3.clearTint();
         });
         opcion3.on('pointerdown', ()=>{
-            this.scene.start('sc_play2')
-        });
-
-        //OPCION CREDITOS
-        var opcion4 = this.add.sprite(game.config.width / 2, game.config.height / 2 + 180, 'boton').setInteractive();
-        opcion4.on('pointerover', function() {
-            opcion4.setTint(0x7878ff);
-        });
-        opcion4.on('pointerout', function() {
-            opcion4.clearTint();
-        });
-        opcion4.on('pointerdown', ()=>{
             this.scene.start('sc_play2')
         });
     }
