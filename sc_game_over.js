@@ -10,17 +10,17 @@ var sc_game_over = new Phaser.Class({
     },
 
     create (){
-        texto1 = this.add.text(800, 150, '   GAME OVER\n Final Score: ' + score, {
+        texto1 = this.add.text(800, 150, '  GAME OVER\n Final Score: ' + score, {
             fontSize: '40px',
             fill: '#c96520'
         });
 
         //FINALES
-        //if(ending == 1){
+        if(ending == 0){
         texto2 = this.add.text(30,920, 'Game ended beacuse...', {
             fontSize: '30px',
             fill: '#fdb083'
-        });//};
+        })};
 
         //BOTON RETRODECER
         back = this.add.text(game.config.width -300, game.config.height - 50, 'GO TO MENU', {
@@ -37,7 +37,6 @@ var sc_game_over = new Phaser.Class({
         back.on('pointerdown', ()=>{
             this.scene.start('sc_menu')
         });
-
     },
 
     update(){
