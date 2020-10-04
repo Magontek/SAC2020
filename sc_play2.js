@@ -26,21 +26,19 @@ var sc_play2 = new Phaser.Class({
         this.matter.world.setBounds();
         this.matter.set30Hz();
 
-        for (var i = 0; i < 10; i++)
-        {
-            cosos.matter.add.sprite(500-i*20, 10+i*5,'i_alien', null, {
-                mass: 1,
-                inertia: Infinity,
-                ignoreGravity: false,
-                frictionAir: 0,
-                friction: 0,
-                plugin: {
-                    attractors: [
-                        Phaser.Physics.Matter.Matter.Plugin.resolve("matter-attractors").Attractors.gravity
-                    ]
-                }
-            });
-        }
+
+        cosos.matter.add.sprite(500-i*20, 10+i*5,'i_alien', null, {
+            mass: 1,
+            inertia: Infinity,
+            ignoreGravity: false,
+            frictionAir: 0,
+            friction: 0,
+            plugin: {
+                attractors: [
+                    Phaser.Physics.Matter.Matter.Plugin.resolve("matter-attractors").Attractors.gravity
+                ]
+            }
+        });
 
         cosos.setVelocity(0.6, 0);
 
