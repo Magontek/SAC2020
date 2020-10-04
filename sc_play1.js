@@ -170,6 +170,12 @@ var sc_play1 = new Phaser.Class({
             });
 
             cosos.scale=esc_rnd;
+            cosos.setInteractive();
+            cosos.on('pointerdown', ()=>{
+            if(energytotal > 0){
+                cosos.applyForceFrom(shooter.x,shooter.y, 0.000000001)
+            }
+        });
             // asignacion de velocidad
             // constante de gravitacion G*M mas o menos 54
             // la velocidad es perpendicular, por lo que giro pi/2 y calculo seno y coseno
