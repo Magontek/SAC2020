@@ -17,3 +17,4 @@ var sc_game_over = new Phaser.Class({
 
 
     },
+});
