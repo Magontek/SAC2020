@@ -18,6 +18,9 @@ var sc_play1 = new Phaser.Class({
         this.load.image('i_alien', 'assets/space-baddie.png');
 
         this.load.image('i_target', 'assets/input/red.png');
+        this.load.spritesheet('trash', 'assets/basura.png',
+            { frameWidth: 64, frameHeight: 64 }
+        );
     },
 
     
@@ -26,7 +29,11 @@ var sc_play1 = new Phaser.Class({
         //delta consistente
         this.matter.set30Hz();
 
-        //define la tierra en el centro
+        //BACKGROUND
+        var background = this.add.sprite(0, 0, 'i_fondo');
+        background.setOrigin(0, 0);
+
+        // TIERRA
         var tierra = this.matter.add.sprite(game.config.width / 2,game.config.height / 2, 'i_sun', null, {
             label: 'tierra',
             mass: 200,
@@ -45,9 +52,7 @@ var sc_play1 = new Phaser.Class({
 
         //MOUSE
         this.input.setDefaultCursor('url(assets/input/mira.cur), pointer');
-        //BACKGROUND
-        var background = this.add.sprite(0, 0, 'i_fondo');
-        background.setOrigin(0, 0);
+        
         //BOTON DE PAUSA ENGRANAJE
         var pausa = this.add.sprite(game.config.width - 45, 5, 'i_opciones').setInteractive();
         pausa.setOrigin(0, 0);
@@ -129,20 +134,65 @@ var sc_play1 = new Phaser.Class({
         center = new Phaser.Geom.Point(game.config.width / 2, game.config.height / 2);
         input = this.input;
 
+        // BASURA
+        var center= new Phaser.Math.Vector2(game.config.width / 2,game.config.height / 2);
+        console.log(center);
+        for (var i = 0; i < 10; i++)
+        {
+            // generacion aleatoria de angulos
+            // 1º creo vector en la esquina
+            // 2º lo apunto a un x entre 90 y 250
+            // 3º le doy un angulo aleatorio
+            var vec_n = new Phaser.Math.Vector2();
+            vec_n.x=Phaser.Math.RND.between(90, 250);
+            //console.log(vec_n);
+            vec_n.rotate(Phaser.Math.RND.rotation());
+            //console.log(vec_n);
 
+            //rand de escala
+            esc_rnd=Phaser.Math.RND.frac()*0.5+0.1;
+            cosos = this.matter.add.sprite(vec_n.x+center.x,vec_n.y+center.y,'trash', i, {
+                label: 'coso',
+                mass: 0.001,
+                inertia: Infinity,
+                ignoreGravity: false,
+                frictionAir: 0,
+                friction: 0,
+                shape: {
+                    type: 'circle',
+                    radius: 32*esc_rnd
+                },
+                plugin: {
+                    attractors: [
+                        Phaser.Physics.Matter.Matter.Plugin.resolve("matter-attractors").Attractors.gravity
+                    ]
+                }
+            });
 
+            cosos.scale=esc_rnd;
+            // asignacion de velocidad
+            // constante de gravitacion G*M mas o menos 54
+            // la velocidad es perpendicular, por lo que giro pi/2 y calculo seno y coseno
+            // velocidad angular=raiz(GM/r) 
 
-
-
-        var cosos = this.matter.add.imageStack('i_alien', null, 0, 1, 1, 2, 0, 400, {
-            mass: 1,
-            ignorePointer: true,
-            inertia: Infinity,
-            frictionAir: 0,
-            friction: 0
+            r_vec=vec_n.length()
+            //console.log("r_vec = " + r_vec);
+            dir_vec=vec_n.rotate(3.1416/2).normalize();
+            //console.log(dir_vec);
+            mag_vec=Math.sqrt(60/r_vec);
+            cosos.setVelocity(dir_vec.x*mag_vec,dir_vec.y*mag_vec);
+           
+        }
+        this.matter.world.on('collisionstart', function (event, bodyA, bodyB) {
+            if (bodyA.label==='tierra'){
+                bodyB.visible=false;
+                bodyB.destroy();
+            }
+            if (bodyB.label==='tierra'){
+                bodyA.visible=false;
+                bodyA.destroy();
+            }
         });
-
-
 
     },
 
