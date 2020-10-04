@@ -168,6 +168,7 @@ var sc_play1 = new Phaser.Class({
                 mass: 0.001,
                 inertia: Infinity,
                 ignoreGravity: false,
+                //ignorePointer: true,
                 frictionAir: 0,
                 friction: 0,
                 shape: {
@@ -178,17 +179,20 @@ var sc_play1 = new Phaser.Class({
                     attractors: [
                         Phaser.Physics.Matter.Matter.Plugin.resolve("matter-attractors").Attractors.gravity
                     ]
-                }
+                },
             });
 
             cosos.scale=esc_rnd;
 
-            cosos.setInteractive({draggable: false});
-            /*cosos.on('pointerdown', ()=>{
-                if(energytotal > 0){
-                    cosos.applyForceFrom(shooter.x,shooter.y, 0.000000001)
-                }
-            });*/
+            cosos.setInteractive({ cursor: 'url(assets/input/mira_dark.cur), pointer' });
+            cosos.on('pointerover', function(){
+                este_coso = this;
+                console.log(este_coso);
+            });
+            cosos.on('pointerout', function(){
+                este_coso = null;
+                console.log(este_coso);
+            });
             // asignacion de velocidad
             // constante de gravitacion G*M mas o menos 54
             // la velocidad es perpendicular, por lo que giro pi/2 y calculo seno y coseno
@@ -203,7 +207,6 @@ var sc_play1 = new Phaser.Class({
            
         }
 
-        pium = this.matter.add.pointerConstraint();
 
         // si el objeto es la tierra, borra el otro
         this.matter.world.on('collisionstart', function (event, bodyA, bodyB) {
@@ -220,10 +223,7 @@ var sc_play1 = new Phaser.Class({
 
 
     update(){
-
         //APUNTADOR
-        console.log(shooter.body.speed);
-
         var shooter_angle = Phaser.Math.Angle.Between(shooter.x,shooter.y,input.x,input.y)-Math.PI/2;
         var shooter_angledelta = Phaser.Math.Angle.Wrap(shooter_angle - shooter.rotation);
         if (shooter_angledelta > 0.1 && shooter_angledelta < Math.PI){
@@ -254,8 +254,15 @@ var sc_play1 = new Phaser.Class({
             energytotal -= 0.3;
             energybar.scaleX = energytotal/100;
             energyname.x =(game.config.width / 2 - 30) * energytotal/100;
+
             //var touchers = get.Phaser.Types.Physics.Matter.MatterBody.intersectPoint(input.x,input.y);
             //console.log(touchers);
+
+            //Impulsa el coso cuando haces click
+            if(este_coso!=null){
+                este_coso.applyForceFrom(new Phaser.Math.Vector2(shooter.x,shooter.y), new Phaser.Math.Vector2(0.00001,0));
+            }
+            
         };
         if (energytotal < 100){
             energytotal += 0.06;
@@ -269,10 +276,10 @@ var sc_play1 = new Phaser.Class({
             gasbar.scaleX = gastotal/100
             gasname.x =(game.config.width / 2 - 20) * gastotal/100
             //emitter
-            prop_on = true;
+            fuego.om= true;
         }
         else{
-            prop_on = false;
+            fuego= false;
         };
 
     }
