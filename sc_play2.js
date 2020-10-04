@@ -23,15 +23,29 @@ var sc_play2 = new Phaser.Class({
         this.matter.world.setBounds();
         this.matter.set30Hz();
 
-        center = new Phaser.Geom.Point(game.config.width / 2,game.config.height / 2);
+        var tierra = this.matter.add.sprite(game.config.width / 2,game.config.height / 2, 'i_sun', null, {
+            mass: 200,
+            isStatic: true,
+            shape: {
+                type: 'circle',
+                radius: 64
+            },
+            plugin: {
+                attractors: [
+                    Phaser.Physics.Matter.Matter.Plugin.resolve("matter-attractors").Attractors.gravity
+                ]
+            }
+        });
+
+        var center= new Phaser.Math.Vector2(game.config.width / 2,game.config.height / 2);
 
         for (var i = 0; i < 1; i++)
         {
-            //rad=game.rnd.integerInRange(100, 250);
-            //ang=game.rnd.integerInRange(0, 360);
-            //x_este=0;
-            //y_este=0;
-            cosos = this.matter.add.sprite(500, 250,'i_alien', null, {
+            var vec_n = new Phaser.Math.Vector2();
+            vec_n.setFromObject(tierra);
+            console.log(vec_n);
+            vec_n.y=150;
+            cosos = this.matter.add.sprite(vec_n.x,vec_n.y,'i_alien', null, {
                 mass: 1,
                 inertia: Infinity,
                 ignoreGravity: false,
@@ -46,19 +60,7 @@ var sc_play2 = new Phaser.Class({
             cosos.setVelocity(0.6, 0);
         }
         
-        var sun = this.matter.add.sprite(center, 'i_sun', null, {
-            mass: 200,
-            isStatic: true,
-            shape: {
-                type: 'circle',
-                radius: 64
-            },
-            plugin: {
-                attractors: [
-                    Phaser.Physics.Matter.Matter.Plugin.resolve("matter-attractors").Attractors.gravity
-                ]
-            }
-        });
+        
     },
     update(){
         

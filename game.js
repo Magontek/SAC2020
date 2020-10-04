@@ -22,5 +22,6 @@ var shooter;
 var cosos;
 var right;
 var left;
+var vec_n;
 
 var game = new Phaser.Game(config);
