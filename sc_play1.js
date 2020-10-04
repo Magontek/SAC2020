@@ -25,6 +25,7 @@ var sc_play1 = new Phaser.Class({
 
     
     create (){
+        score=0
 
         //delta consistente
         this.matter.set30Hz();
@@ -84,11 +85,12 @@ var sc_play1 = new Phaser.Class({
         //SATELITE
         shooter = this.shooter;
         shooter = this.matter.add.sprite(200,100,'i_shooter', null, {
+            label: 'nave',
             mass: 0.01,
             ignorePointer: true,
             inertia: Infinity,
             frictionAir: 0,
-            friction: 0
+            friction: 0,
         });
 
         shooter.setInteractive({ cursor: 'url(assets/input/mira_dark.cur), pointer' });
@@ -149,7 +151,7 @@ var sc_play1 = new Phaser.Class({
         // BASURA
         var center= new Phaser.Math.Vector2(game.config.width / 2,game.config.height / 2);
         console.log(center);
-        for (var i = 0; i < 10; i++)
+        for (var i = 0; i < 1; i++)
         {
             // generacion aleatoria de angulos
             // 1º creo vector en la esquina
@@ -168,7 +170,6 @@ var sc_play1 = new Phaser.Class({
                 mass: 0.001,
                 inertia: Infinity,
                 ignoreGravity: false,
-                //ignorePointer: true,
                 frictionAir: 0,
                 friction: 0,
                 shape: {
@@ -209,20 +210,31 @@ var sc_play1 = new Phaser.Class({
 
 
         // si el objeto es la tierra, borra el otro
-        this.matter.world.on('collisionstart', function (event, bodyA, bodyB) {
+        this.matter.world.on('collisionstart', (event, bodyA, bodyB) => {
             if (bodyA.label==='tierra'){
-                bodyB.visible=false;
+                console.log(bodyB)
+                test=bodyB;
+                bodyB.position.x=-100;
                 bodyB.destroy();
-            }
-            if (bodyB.label==='tierra'){
-                bodyA.visible=false;
+            } else if (bodyB.label==='tierra'){
+                console.log(bodyB)
+                test=bodyB;
+                bodyA.position.x=-100;
                 bodyA.destroy();
-            }
+            } else if (bodyA.label==='nave'||bodyB.label==='nave'){
+
+            };
         });
+
+        scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
     },
 
 
     update(){
+        // puntaje
+
+        scoreText.setText('Score: ' + score);
+
         //APUNTADOR
         var shooter_angle = Phaser.Math.Angle.Between(shooter.x,shooter.y,input.x,input.y)-Math.PI/2;
         var shooter_angledelta = Phaser.Math.Angle.Wrap(shooter_angle - shooter.rotation);
@@ -263,7 +275,6 @@ var sc_play1 = new Phaser.Class({
                 var pos_nave=new Phaser.Math.Vector2(shooter.x,shooter.y)
                 este_coso.applyForceFrom(pos_nave, pos_nave.normalize().scale(0.00000001));
             }
-            
         };
         if (energytotal < 100){
             energytotal += 0.06;
