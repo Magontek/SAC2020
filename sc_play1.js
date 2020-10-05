@@ -14,7 +14,7 @@ var sc_play1 = new Phaser.Class({
         this.load.image('i_fondo', 'assets/espacio-exterior.png');
         this.load.image('i_red', 'assets/red.png');
         this.load.image('i_exp', 'assets/explosion.png');
-        this.load.image('i_shooter', 'assets/satelite_laser_2.png');
+        this.load.image('i_shooter', 'assets/satelite_laser_3.png');
         this.load.image('i_iss', 'assets/iss.png');
         this.load.image('i_opciones', 'assets/opciones.png');
         this.load.image('i_target', 'assets/input/red.png');
