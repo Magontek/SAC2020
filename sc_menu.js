@@ -11,6 +11,7 @@ var sc_menu = new Phaser.Class({
         this.load.image('sound', 'assets/boton_sonido.png')
         this.load.image('soundbars', 'assets/barras_sonido.png')
         this.load.image('information', 'assets/solar_panel.png')
+        this.load.image('how', 'assets/how.png')
     },
     create(){
         this.input.mouse.disableContextMenu();
@@ -36,6 +37,19 @@ var sc_menu = new Phaser.Class({
         });
         opcion1.on('pointerdown', ()=>{
             this.scene.start('sc_play1')
+        });
+
+        //OPCION INSTRUCCIONES
+        var opcion4 = this.add.sprite(game.config.width / 2 + 70, 720, 'how').setInteractive();
+        opcion4.setScale(1.5)
+        opcion4.on('pointerover', function() {
+            opcion4.setTint(0x348cd0);
+        });
+        opcion4.on('pointerout', function() {
+            opcion4.clearTint();
+        });
+        opcion4.on('pointerdown', ()=>{
+            this.scene.start('sc_instrucciones')
         });
 
         //OPCION SONIDO
