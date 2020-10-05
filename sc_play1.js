@@ -28,8 +28,12 @@ var sc_play1 = new Phaser.Class({
     
     create (){
         score=0;
-        this.sound.add('s_laser');
-        this.sound.add('s_prop');
+        laser = this.sound.add('s_laser',{
+            volume: 0.2,
+        });
+        traste = this.sound.add('s_prop',{
+            volume: 0.02
+        });
         //delta consistente
         this.matter.set30Hz();
 
@@ -157,7 +161,7 @@ var sc_play1 = new Phaser.Class({
                 }
             },
             lifespan: 100,
-            scale: { start: 0.5, end: 2 },
+            scale: { start: 0.1, end: 1.5 },
             alpha: { start: 0.5, end: 0 },
             blendMode: 'ADD',
 
@@ -273,7 +277,8 @@ var sc_play1 = new Phaser.Class({
 
         // si el objeto es la tierra, borra el otro
         this.matter.world.on('collisionstart', (event, bodyA, bodyB) => {
-            this.sound.play('s_prop');
+            //this.sound.play('s_prop');
+            traste.play();
             //Si algo colisiona contra la tierra
             if (bodyA.label==='tierra'){
                 if(bodyB.label==='coso'){
@@ -385,7 +390,8 @@ var sc_play1 = new Phaser.Class({
         if (pointer.leftButtonDown() && energytotal > 0 && can_shoot == true){
             var line = this.add.line(0,0,shooter.x,shooter.y,input.x,input.y,0xe74c3c).setOrigin(0, 0);
             if(sound==1){
-                this.sound.play('s_laser');
+                //this.sound.play('s_laser');
+                laser.play();
             }
             this.time.addEvent({
                 delay: 40,
@@ -411,7 +417,8 @@ var sc_play1 = new Phaser.Class({
         }
         if (pointer.rightButtonDown() && gastotal > 0){
             if(sound==1){
-                this.sound.play('s_prop');
+                //this.sound.play('s_prop');
+                traste.play();
             }
             shooter.thrustRight(0.0000001);
             gastotal -= 0.15;
