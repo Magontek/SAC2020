@@ -15,7 +15,7 @@ var sc_game_over = new Phaser.Class({
         //FINALES
         //Final 1 - toca tierra
         if (ending === 1){
-        texto2 = this.add.text(650,520, 'The satellite re-entered the earth, \nburning through the atmosphere \nand leaving no remains', {
+        texto2 = this.add.text(650,520, 'The satellite re-entered the The Earth, \nburning through the atmosphere \nand leaving no remains', {
             fontSize: '40px',
             fill: '#848484'
         })};
@@ -33,7 +33,7 @@ var sc_game_over = new Phaser.Class({
         })};
         //Final 4 - ????
         if (ending === 4 || ending === 0){
-        texto2 = this.add.text(650,520, 'Error Unkown End', {
+        texto2 = this.add.text(650,520, 'The satellite left The Earth\'s sphere of\n gravitational influence and you\nlost communications with it.', {
             fontSize: '40px',
             fill: '#848484'
         })};
