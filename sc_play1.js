@@ -325,7 +325,7 @@ var sc_play1 = new Phaser.Class({
                 bodyB.destroy();
                 ending=2;
                 this.time.addEvent({
-                delay: 10000,
+                delay: 5000,
                 callback: ()=>{
                     this.scene.start('sc_game_over');
                     },
