@@ -435,7 +435,7 @@ var sc_play1 = new Phaser.Class({
             }
         };
         if (energytotal < 100){
-            energytotal += 0.02;
+            energytotal += 0.08;
             energybar.scaleX = energytotal/100
             energyname.x =(game.config.width / 2 - 30) * energytotal/100
         }
