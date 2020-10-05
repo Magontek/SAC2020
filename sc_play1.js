@@ -21,12 +21,15 @@ var sc_play1 = new Phaser.Class({
         this.load.spritesheet('trash', 'assets/basura.png',
             { frameWidth: 64, frameHeight: 64 }
         );
+        this.load.audio('s_laser','assets/blaster.mp3');
+        this.load.audio('s_prop','assets/explode1.wav');
     },
 
     
     create (){
         score=0
-
+        this.sound.add('s_laser');
+        this.sound.add('s_prop');
         //delta consistente
         this.matter.set30Hz();
 
@@ -380,6 +383,7 @@ var sc_play1 = new Phaser.Class({
         var pointer = this.input.activePointer;
         if (pointer.leftButtonDown() && energytotal > 0 && can_shoot == true){
             var line = this.add.line(0,0,shooter.x,shooter.y,input.x,input.y,0xe74c3c).setOrigin(0, 0);
+            this.sound.play('s_laser');
             this.time.addEvent({
                 delay: 40,
                 callback: ()=>{
@@ -403,7 +407,7 @@ var sc_play1 = new Phaser.Class({
             energyname.x =(game.config.width / 2 - 30) * energytotal/100
         }
         if (pointer.rightButtonDown() && gastotal > 0){
-
+            this.sound.play('s_prop');
             shooter.thrustRight(0.0000001);
             gastotal -= 0.15;
             gasbar.scaleX = gastotal/100
