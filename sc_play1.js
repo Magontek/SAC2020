@@ -132,6 +132,12 @@ var sc_play1 = new Phaser.Class({
 
 
         iss.setInteractive({ cursor: 'url(assets/input/mira_dark.cur), pointer' });
+        iss.on('pointerover', function(){
+            can_shoot = false;
+        });
+        iss.on('pointerout', function(){
+            can_shoot = true;
+        });
 
         fuego = particles.createEmitter({
             speed: { min: 400, max: 600 },
@@ -254,9 +260,9 @@ var sc_play1 = new Phaser.Class({
             // velocidad angular=raiz(GM/r) 
 
             r_vec=vec_n.length()
-            //console.log("r_vec = " + r_vec);
+            
             dir_vec=vec_n.rotate(3.1416/2).normalize();
-            //console.log(dir_vec);
+            
             mag_vec=Math.sqrt(60/r_vec);
             cosos.setVelocity(dir_vec.x*mag_vec,dir_vec.y*mag_vec);
            
@@ -371,7 +377,7 @@ var sc_play1 = new Phaser.Class({
         };
 
         //PROPULSION Y BARRAS DE ESTADO
-        var pointer = this.input.activePointer;//&& !tierra.on('pointerdown')
+        var pointer = this.input.activePointer;
         if (pointer.leftButtonDown() && energytotal > 0 && can_shoot == true){
             var line = this.add.line(0,0,shooter.x,shooter.y,input.x,input.y,0xe74c3c).setOrigin(0, 0);
             this.time.addEvent({
@@ -384,8 +390,7 @@ var sc_play1 = new Phaser.Class({
             energytotal -= 0.2;
             energybar.scaleX = energytotal/100;
             energyname.x =(game.config.width / 2 - 30) * energytotal/100;
-            //var touchers = get.Phaser.Types.Physics.Matter.MatterBody.intersectPoint(input.x,input.y);
-            //console.log(touchers);
+
             //Impulsa el coso cuando haces click
             if(este_coso!=null){
                 var vec_impulso=new Phaser.Math.Vector2(input.x-shooter.x,input.y-shooter.y)
@@ -403,6 +408,7 @@ var sc_play1 = new Phaser.Class({
             gastotal -= 0.15;
             gasbar.scaleX = gastotal/100
             gasname.x =(game.config.width / 2 - 20) * gastotal/100
+            
             //emitter
             fuego.on= true;
         }
