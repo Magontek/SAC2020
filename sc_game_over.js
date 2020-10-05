@@ -15,7 +15,7 @@ var sc_game_over = new Phaser.Class({
         //FINALES
         //Final 1 - toca tierra
         if (ending === 1){
-        texto2 = this.add.text(650,520, 'The satellite re-entered earth, \nburning through the atmosfere \nand leaving no remains', {
+        texto2 = this.add.text(650,520, 'The satellite re-entered the earth, \nburning through the atmosphere \nand leaving no remains', {
             fontSize: '40px',
             fill: '#848484'
         })};
