@@ -17,7 +17,6 @@ var sc_play1 = new Phaser.Class({
         this.load.image('i_shooter', 'assets/satelite_laser_3.png');
         this.load.image('i_iss', 'assets/iss.png');
         this.load.image('i_opciones', 'assets/opciones.png');
-        this.load.image('i_target', 'assets/input/red.png');
         this.load.spritesheet('trash', 'assets/basura.png',
             { frameWidth: 64, frameHeight: 64 }
         );
@@ -390,7 +389,6 @@ var sc_play1 = new Phaser.Class({
         if (pointer.leftButtonDown() && energytotal > 0 && can_shoot == true){
             var line = this.add.line(0,0,shooter.x,shooter.y,input.x,input.y,0xe74c3c).setOrigin(0, 0);
             if(sound==1){
-                //this.sound.play('s_laser');
                 laser.play();
             }
             this.time.addEvent({
@@ -417,7 +415,6 @@ var sc_play1 = new Phaser.Class({
         }
         if (pointer.rightButtonDown() && gastotal > 0){
             if(sound==1){
-                //this.sound.play('s_prop');
                 traste.play();
             }
             shooter.thrustRight(0.0000001);
