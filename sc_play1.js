@@ -27,7 +27,7 @@ var sc_play1 = new Phaser.Class({
 
     
     create (){
-        score=0
+        score=0;
         this.sound.add('s_laser');
         this.sound.add('s_prop');
         //delta consistente
