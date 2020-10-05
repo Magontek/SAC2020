@@ -28,6 +28,7 @@ var fuego;
 var prop_on=false;
 este_coso = null;
 ending=0;
+sound=1;
 // 0=nada
 // 1=satelite reentro a la tierra
 // 2=satelite fue destruido
