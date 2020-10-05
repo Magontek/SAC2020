@@ -25,13 +25,16 @@ var sc_play1 = new Phaser.Class({
         this.load.audio('s_prop','assets/explode1.wav');
     },
 
-    
     create (){
         score=0;
         this.sound.add('s_laser');
         this.sound.add('s_prop');
         //delta consistente
         this.matter.set30Hz();
+
+        //Limites del mundo
+        this.matter.world.setBounds();
+
 
         //BACKGROUND
         var background = this.add.sprite(0, 0, 'i_fondo');
@@ -245,23 +248,21 @@ var sc_play1 = new Phaser.Class({
                     ]
                 },
             });
-
             cosos.scale=esc_rnd;
 
             cosos.setInteractive({ cursor: 'url(assets/input/mira_shooting.cur), pointer' });
             cosos.on('pointerover', function(){
                 este_coso = this;
-                console.log(este_coso);
+                //console.log(este_coso);
             });
             cosos.on('pointerout', function(){
                 este_coso = null;
-                console.log(este_coso);
+                //console.log(este_coso);
             });
             // asignacion de velocidad
             // constante de gravitacion G*M mas o menos 54
             // la velocidad es perpendicular, por lo que giro pi/2 y calculo seno y coseno
             // velocidad angular=raiz(GM/r) 
-
             r_vec=vec_n.length()
             
             dir_vec=vec_n.rotate(3.1416/2).normalize();
@@ -274,8 +275,34 @@ var sc_play1 = new Phaser.Class({
         // si el objeto es la tierra, borra el otro
         this.matter.world.on('collisionstart', (event, bodyA, bodyB) => {
             this.sound.play('s_prop');
+            console.log(bodyA)
+            console.log(bodyB)
+            //Si algo colisiona contra el borde
+            if (bodyA.label==='Rectangle Body'){
+                if(bodyB.label==='coso'){
+                    test=bodyB;
+                    bodyB.position.x=-100;
+                    bodyB.destroy();
+                    score+=5;
+                    n_basura-=1;
+                } else{
+                    ending=4;
+                    this.scene.start('sc_game_over')
+                }
+            }else if (bodyB.label==='Rectangle Body'){
+                if(bodyB.label==='coso'){
+                    test=bodyB;
+                    bodyB.position.x=-100;
+                    bodyB.destroy();
+                    score+=5;
+                    n_basura-=1;
+                } else{
+                    ending=4;
+                    this.scene.start('sc_game_over')
+                }
+            }
             //Si algo colisiona contra la tierra
-            if (bodyA.label==='tierra'){
+            else if(bodyA.label==='tierra'){
                 if(bodyB.label==='coso'){
                     test=bodyB;
                     bodyB.position.x=-100;
@@ -354,6 +381,7 @@ var sc_play1 = new Phaser.Class({
             }
             ;
         });
+
         scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#fff' });
         trashleft = this.add.text(16, 48, 'Trash left: 0', { fontSize: '32px', fill: '#fff' });
     },
