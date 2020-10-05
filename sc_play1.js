@@ -273,6 +273,7 @@ var sc_play1 = new Phaser.Class({
 
         // si el objeto es la tierra, borra el otro
         this.matter.world.on('collisionstart', (event, bodyA, bodyB) => {
+            this.sound.play('s_prop');
             //Si algo colisiona contra la tierra
             if (bodyA.label==='tierra'){
                 if(bodyB.label==='coso'){
