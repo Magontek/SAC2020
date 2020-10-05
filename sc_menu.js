@@ -61,6 +61,9 @@ var sc_menu = new Phaser.Class({
             opcion2.clearTint();
         });
         var soundbars = this.add.sprite(game.config.width - 400, game.config.height - 160, 'soundbars');
+        if (sound == 0){
+            soundbars.visible = false;
+        };
         opcion2.on('pointerdown', ()=>{
         if (soundbars.visible == false){
             soundbars.visible = true;
