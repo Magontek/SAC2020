@@ -3,7 +3,7 @@ var config = {
         type: Phaser.AUTO,
         width: 1880,
         height: 1056,
-        scene: [sc_menu, sc_play1, sc_play2, sc_game_over, sc_credits, sc_instrucciones],
+        scene: [sc_menu, sc_play1, sc_game_over, sc_credits, sc_instrucciones],
         parent: 'phaser-example',
 	    physics: {
 	        default: 'matter',

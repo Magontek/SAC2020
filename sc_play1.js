@@ -345,7 +345,7 @@ var sc_play1 = new Phaser.Class({
                 bodyA.destroy();
                 bodyB.position.x=-100;
                 bodyB.destroy();
-                score-=10;
+                score-=5;
                 n_basura-=2;
             }
             ;
